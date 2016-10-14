@@ -1,28 +1,44 @@
-FROM beevelop/java
+FROM beevelop/android-nodejs:latest
 
-MAINTAINER Maik Hummel <m@ikhummel.com>
+MAINTAINER Srinivasan Sekar <srinivasan.sekar1990@gmail.com>
 
-ENV ANDROID_SDK_URL="https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz" \
-    ANDROID_BUILD_TOOLS_VERSION=23.0.3 \
-    ANDROID_APIS="android-10,android-15,android-16,android-17,android-18,android-19,android-20,android-21,android-22,android-23,android-24" \
-    ANT_HOME="/usr/share/ant" \
-    MAVEN_HOME="/usr/share/maven" \
-    GRADLE_HOME="/usr/share/gradle" \
-    ANDROID_HOME="/opt/android-sdk-linux"
+#Setting JAVA_HOME in PATH
+ENV PATH $PATH:$JAVA_HOME/bin
 
-ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION:$ANT_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN dpkg --add-architecture i386 && \
-    apt-get -qq update && \
-    apt-get -qq install -y curl ant gradle libncurses5:i386 libstdc++6:i386 zlib1g:i386 && \
+#Display Java version
+RUN java -version
 
-    # Installs Android SDK
-    curl -sL ${ANDROID_SDK_URL} | tar xz -C /opt && \
-    echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION} && \
-    chmod a+x -R $ANDROID_HOME && \
-    chown -R root:root $ANDROID_HOME && \
+#Display Gradle version
+RUN gradle -v
 
-    # Clean up
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    apt-get autoremove -y && \
-    apt-get clean
+#Display node version
+RUN node -v
+
+RUN apt-get update
+
+#Install wget through apt-get
+RUN apt-get install -y wget
+
+#Install Maven
+RUN apt-get install -y gdebi && \
+  wget http://ppa.launchpad.net/natecarlson/maven3/ubuntu/pool/main/m/maven3/maven3_3.2.1-0~ppa1_all.deb && \
+  gdebi --non-interactive maven3_3.2.1-0~ppa1_all.deb && \
+  ln -s /usr/share/maven3/bin/mvn /usr/bin/mvn && \
+  rm -rf maven3_3.2.1-0~ppa1_all.deb
+
+#Displays Maven version
+RUN mvn -v
+
+#Install appium globally
+RUN npm install -g appium
+
+#Expose default port of appium
+EXPOSE 4723
+
+#Install appium doctor globally
+RUN npm install appium-doctor -g
+
+#Check health of appium android
+RUN appium-doctor --android
