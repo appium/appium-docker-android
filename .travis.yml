@@ -8,4 +8,4 @@ script:
   - docker run -d srinivasansekar/docker-appium
   - docker ps -a
   - docker run srinivasansekar/docker-appium /bin/sh -c "appium-doctor --android"
-  - docker run beendroid /bin/sh -c "android list"
+  - docker run srinivasansekar/docker-appium /bin/sh -c "android list"
