@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker build -t srinivasansekar/docker-appium .
+  - docker run -d srinivasansekar/docker-appium
+  - docker ps -a
+  - docker run srinivasansekar/docker-appium /bin/sh -c "appium-doctor --android"
