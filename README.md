@@ -1,6 +1,6 @@
 [![Travis](https://travis-ci.org/SrinivasanTarget/docker-appium.svg?branch=master)](https://travis-ci.org/SrinivasanTarget/docker-appium)
 
-# Appium setup to automate android testing on real devices inside docker
+# Appium setup to automate android testing on real devices
 
 - JDK 8
 - Ant 1.9.6
