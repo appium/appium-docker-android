@@ -8,10 +8,10 @@
 - Maven 3.2.1
 - Gradle 2.5 (Groovy 2.4.3)
 - Android 24.4.1 
-    + Avaliable Android Targets/Virtual Devices Details: https://github.com/SrinivasanTarget/docker-appium/blob/master/AndroidDeviceDirectory.md
+    + Avaliable Android Targets/Virtual Devices Details: https://github.com/appium/appium-docker-android/blob/master/AndroidDeviceDirectory.md
     + APIs: android-10,android-15,android-16,android-17,android-18,android-19,android-20,android-21,android-22,android-23
     + Build-Tools: 23.0.3
-- Appium 1.6
+- Appium 1.6.0
 - Appium doctor
 
 ----
