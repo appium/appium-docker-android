@@ -4,8 +4,8 @@ services:
   - docker
 
 script:
-  - docker build -t srinivasansekar/docker-appium .
-  - docker run -d srinivasansekar/docker-appium
+  - docker build appium/appium-docker-android github.com/appium/appium-docker-android .
+  - docker run -d appium/appium-docker-android
   - docker ps -a
-  - docker run srinivasansekar/docker-appium /bin/sh -c "appium-doctor --android"
-  - docker run srinivasansekar/docker-appium /bin/sh -c "android list"
+  - docker run appium/appium-docker-android /bin/sh -c "appium-doctor --android"
+  - docker run appium/appium-docker-android /bin/sh -c "android list"
