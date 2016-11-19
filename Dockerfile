@@ -25,6 +25,20 @@ RUN apt-get update -qqy \
   && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
   && sed -i 's/securerandom\.source=file:\/dev\/random/securerandom\.source=file:\/dev\/urandom/' ./usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.security
 
+#=======================================
+# Setting JAVA_HOME in PATH
+#=======================================
+RUN { \
+		echo '#!/bin/sh'; \
+		echo 'set -e'; \
+		echo; \
+		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
+	} > /usr/local/bin/docker-java-home \
+	&& chmod +x /usr/local/bin/docker-java-home
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
+ENV PATH $PATH:$JAVA_HOME/bin
+
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 
@@ -43,20 +57,15 @@ RUN dpkg --add-architecture i386 && \
 #================================================================
 # Includes Android SDK
 #================================================================
-curl -sL ${ANDROID_SDK_URL} | tar xz -C /opt && \
-echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION} && \
-chmod a+x -R $ANDROID_HOME && \
-chown -R root:root $ANDROID_HOME && \
+    curl -sL ${ANDROID_SDK_URL} | tar xz -C /opt && \
+    echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION} && \
+    chmod a+x -R $ANDROID_HOME && \
+    chown -R root:root $ANDROID_HOME && \
 
-# Clean up
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-apt-get autoremove -y && \
-apt-get clean
-
-#=======================================
-# Setting JAVA_HOME in PATH
-#=======================================
-ENV PATH $PATH:$JAVA_HOME/bin
+    # Clean up
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    apt-get autoremove -y && \
+    apt-get clean
 
 #=======================================
 # Display JAVA version
