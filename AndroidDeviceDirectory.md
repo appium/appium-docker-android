@@ -1,54 +1,5 @@
 # Available Android targets
-----------
-id: 1 or "android-10"
-     Name: Android 2.3.3
-     Type: Platform
-     API level: 10
-     Revision: 2
-     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WVGA800 (default), WVGA854
- Tag/ABIs : default/armeabi
-----------
-id: 2 or "android-15"
-     Name: Android 4.0.3
-     Type: Platform
-     API level: 15
-     Revision: 5
-     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800
- Tag/ABIs : no ABIs.
-----------
-id: 3 or "android-16"
-     Name: Android 4.1.2
-     Type: Platform
-     API level: 16
-     Revision: 5
-     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
- Tag/ABIs : no ABIs.
-----------
-id: 4 or "android-17"
-     Name: Android 4.2.2
-     Type: Platform
-     API level: 17
-     Revision: 3
-     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
- Tag/ABIs : no ABIs.
-----------
-id: 5 or "android-18"
-     Name: Android 4.3.1
-     Type: Platform
-     API level: 18
-     Revision: 3
-     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
- Tag/ABIs : no ABIs.
-----------
-id: 6 or "android-19"
-     Name: Android 4.4.2
-     Type: Platform
-     API level: 19
-     Revision: 4
-     Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
- Tag/ABIs : no ABIs.
-----------
-id: 7 or "android-20"
+id: 1 or "android-20"
      Name: Android 4.4W.2
      Type: Platform
      API level: 20
@@ -56,7 +7,7 @@ id: 7 or "android-20"
      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
  Tag/ABIs : no ABIs.
 ----------
-id: 8 or "android-21"
+id: 2 or "android-21"
      Name: Android 5.0.1
      Type: Platform
      API level: 21
@@ -64,7 +15,7 @@ id: 8 or "android-21"
      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
  Tag/ABIs : no ABIs.
 ----------
-id: 9 or "android-22"
+id: 3 or "android-22"
      Name: Android 5.1.1
      Type: Platform
      API level: 22
@@ -72,7 +23,7 @@ id: 9 or "android-22"
      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
  Tag/ABIs : no ABIs.
 ----------
-id: 10 or "android-23"
+id: 4 or "android-23"
      Name: Android 6.0
      Type: Platform
      API level: 23
@@ -80,7 +31,7 @@ id: 10 or "android-23"
      Skins: HVGA, QVGA, WQVGA400, WQVGA432, WSVGA, WVGA800 (default), WVGA854, WXGA720, WXGA800, WXGA800-7in
  Tag/ABIs : no ABIs.
 ----------
-id: 11 or "android-24"
+id: 5 or "android-24"
      Name: Android 7.0
      Type: Platform
      API level: 24
