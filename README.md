@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/appium/appium-docker-android.svg?branch=master)](https://travis-ci.org/appium/appium-docker-android)
+[![Docker Pulls](https://img.shields.io/docker/pulls/appium/appium-docker-android.svg?style=flat-square)](https://hub.docker.com/r/appium/appium-docker-android/)
 
 # Appium setup to automate android testing on real devices
 
@@ -8,7 +9,7 @@
 - Android 25.0.0
     + Avaliable Android Targets/Virtual Devices Details: https://github.com/appium/appium-docker-android/blob/master/AndroidDeviceDirectory.md
     + APIs: android-20,android-21,android-22,android-23,android-24
-    + Build-Tools: 23.0.3
+    + Build-Tools: 25.0.0
 - Appium Latest
 - Appium doctor
 
