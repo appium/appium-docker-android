@@ -44,7 +44,7 @@ ENV DEBCONF_NONINTERACTIVE_SEEN true
 
 ENV ANDROID_SDK_URL="https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz" \
     ANDROID_BUILD_TOOLS_VERSION=25.0.0 \
-    ANDROID_APIS="android-20,android-21,android-22,android-23,android-24" \
+    ANDROID_APIS="android-19,android-20,android-21,android-22,android-23,android-24" \
     MAVEN_HOME="/usr/share/maven" \
     ANDROID_HOME="/opt/android-sdk-linux"
 
