@@ -74,7 +74,7 @@ RUN echo "no" | android create avd \
                 --name "Nexus" \
                 --target android-24 \
                 --abi x86 \
-                --skin WVGA800 \
+                --skin WVGA800
 
 #===============================================================
 # Display JAVA version
