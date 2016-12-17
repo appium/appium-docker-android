@@ -56,7 +56,7 @@ RUN dpkg --add-architecture i386 && \
 # Includes Android SDK
 #================================================================
     curl -sL ${ANDROID_SDK_URL} | tar xz -C /opt && \
-    echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION},sys-img-x86-android-24 && \
+    echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION},sys-img-armeabi-v7a-android-24 && \
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME && \
 
