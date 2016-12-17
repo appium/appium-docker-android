@@ -29,9 +29,7 @@ docker build -t appium/appium-docker-android github.com/appium/appium-docker-and
 docker run -it appium/appium-docker-android bash
 ```
 
-#================================================================
-# Launch the Emulator Nexus
-#================================================================
+### Launch the Emulator Nexus
 
 emulator64-arm -avd Nexus -no-boot-anim -noaudio -no-window -gpu off
 
