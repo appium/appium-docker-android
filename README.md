@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/appium/appium-docker-android.svg?branch=master)](https://travis-ci.org/appium/appium-docker-android)
 [![Docker Pulls](https://img.shields.io/docker/pulls/appium/appium-docker-android.svg?style=flat-square)](https://hub.docker.com/r/appium/appium-docker-android/)
+[![](https://images.microbadger.com/badges/image/appium/appium-docker-android.svg)](https://microbadger.com/images/appium/appium-docker-android)
+[![](https://images.microbadger.com/badges/version/appium/appium-docker-android.svg)](https://microbadger.com/images/appium/appium-docker-android)
 
 # Appium setup to automate android testing on real devices
 
