@@ -9,3 +9,4 @@ script:
   - docker ps -a
   - docker run appium /bin/sh -c "appium-doctor --android"
   - docker run appium /bin/sh -c "android list"
+  - docker run appium /bin/sh -c "adb devices"
