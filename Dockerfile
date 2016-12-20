@@ -50,13 +50,13 @@ ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/bu
 #================================================================
 RUN dpkg --add-architecture i386 && \
           apt-get -qq update && \
-          apt-get -qq install -y curl libncurses5:i386 libstdc++6:i386 zlib1g:i386 && \
+          apt-get -qq install -y curl libncurses5:i386 libstdc++6:i386 zlib1g:i386  && \
 
 #================================================================
 # Includes Android SDK
 #================================================================
     curl -sL ${ANDROID_SDK_URL} | tar xz -C /opt && \
-    echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION},sys-img-x86-android-24 && \
+    echo y | android update sdk -a -u -t platform-tools,${ANDROID_APIS},build-tools-${ANDROID_BUILD_TOOLS_VERSION},sys-img-armeabi-v7a-android-24 && \
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME && \
 
@@ -73,9 +73,8 @@ RUN echo "no" | android create avd \
                 --device "Nexus 5" \
                 --name "Nexus" \
                 --target android-24 \
-                --abi x86 \
-                --skin WVGA800 \
-                --sdcard 512M
+                --abi armeabi-v7a \
+                --skin WVGA800
 
 #===============================================================
 # Display JAVA version
@@ -129,3 +128,5 @@ RUN mkdir /etc/udev/rules.d \
 EXPOSE 4723
 
 CMD appium
+
+CMD emulator64-arm -avd Nexus -no-boot-anim -no-window -noaudio -gpu off
