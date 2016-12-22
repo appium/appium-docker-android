@@ -5,8 +5,8 @@ services:
 
 script:
   - docker build -t appium .
-  - docker run -d appium
+  - docker run -d --name appium_android appium
   - docker ps -a
-  - docker run appium /bin/sh -c "appium-doctor --android"
-  - docker run appium /bin/sh -c "android list"
-  - docker run appium /bin/sh -c "adb devices"
+  - docker exec appium_android /bin/sh -c "appium-doctor --android"
+  - docker exec appium_android /bin/sh -c "android list"
+  - docker exec appium_android /bin/sh -c "adb devices"
