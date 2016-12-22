@@ -76,6 +76,8 @@ RUN echo "no" | android create avd \
                 --abi armeabi-v7a \
                 --skin WVGA800
 
+RUN adb start-server
+
 #===============================================================
 # Display JAVA version
 #===============================================================
@@ -127,6 +129,4 @@ RUN mkdir /etc/udev/rules.d \
 #=======================================
 EXPOSE 4723
 
-CMD appium
-
-CMD emulator64-arm -avd Nexus -no-boot-anim -no-window -noaudio -gpu off
+CMD emulator64-arm -avd Nexus -no-boot-anim -no-window -noaudio -gpu off & appium
