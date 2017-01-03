@@ -65,6 +65,11 @@ RUN dpkg --add-architecture i386 && \
     apt-get autoremove --purge -y && \
     apt-get clean
 
+#===============================================================
+# Download adbportforward.jar to /home -- For OSX
+#===============================================================
+RUN wget --no-verbose https://bitbucket.org/chabernac/adbportforward/downloads/adbportforward.jar -O /home/adbportforward.jar
+
 #================================================================
 # Creates Nexus 5 Android-24 Emulator by default
 #================================================================
