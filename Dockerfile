@@ -70,6 +70,7 @@ RUN dpkg --add-architecture i386 && \
 #===============================================================
 RUN wget --no-verbose https://bitbucket.org/chabernac/adbportforward/downloads/adbportforward.jar -O /home/adbportforward.jar
 
+
 #================================================================
 # Creates Nexus 5 Android-24 Emulator by default
 #================================================================
@@ -128,6 +129,11 @@ RUN appium-doctor --android
 ENV UDEV_REMOTE_FILE https://raw.githubusercontent.com/M0Rf30/android-udev-rules/master/ubuntu/51-android.rules
 RUN mkdir /etc/udev/rules.d \
   && wget --no-verbose $UDEV_REMOTE_FILE -O /etc/udev/rules.d/51-android.rules
+
+#===============================================================
+# Invoke adbportforwarding client -- For OSX
+#===============================================================
+CMD java -jar adbportforward.jar client adblocation=$ANDROID_HOME/platform-tools/ remotehost=127.0.0.1 port=6037 &
 
 #=======================================
 # Expose default port of appium

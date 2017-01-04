@@ -35,3 +35,14 @@ docker run -it appium/appium-docker-android bash
 ```Dockerfile
 FROM appium/appium-docker-android:latest
 ```
+
+### Below are commands added to download adbportforwarding for OSX
+```Dockerfile
+RUN wget --no-verbose https://bitbucket.org/chabernac/adbportforward/downloads/adbportforward.jar -O /home/adbportforward.jar
+```
+
+
+### Invoke adbportforwarding client -- For OSX
+```Dockerfile
+CMD java -jar /home/adbportforward.jar client adblocation=$ANDROID_HOME/platform-tools/ remotehost=127.0.0.1 port=6037 &
+```
