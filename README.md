@@ -46,3 +46,5 @@ RUN wget --no-verbose https://bitbucket.org/chabernac/adbportforward/downloads/a
 ```Dockerfile
 CMD java -jar /home/adbportforward.jar client adblocation=$ANDROID_HOME/platform-tools/ remotehost=127.0.0.1 port=6037 &
 ```
+### References
+Wiki Page for adbportforwarding: https://bitbucket.org/chabernac/adbportforward/wiki/Home
