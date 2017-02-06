@@ -120,7 +120,7 @@ RUN appium-doctor --android
 #============================================
 # Add udev rules file with USB configuration
 #============================================
-ENV UDEV_REMOTE_FILE https://raw.githubusercontent.com/M0Rf30/android-udev-rules/master/ubuntu/51-android.rules
+ENV UDEV_REMOTE_FILE https://raw.githubusercontent.com/M0Rf30/android-udev-rules/master/51-android.rules
 RUN mkdir /etc/udev/rules.d \
   && wget --no-verbose $UDEV_REMOTE_FILE -O /etc/udev/rules.d/51-android.rules
 
