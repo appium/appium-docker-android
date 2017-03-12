@@ -17,6 +17,7 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu xenial main universe\n" > /etc/a
     apt-get -qqy --no-install-recommends install \
     ca-certificates \
     openjdk-8-jdk-headless \
+    xvfb \
     wget \
     unzip && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/* && \
