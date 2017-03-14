@@ -25,7 +25,8 @@ docker build -t appium/appium-docker-android github.com/appium/appium-docker-and
 5. Run the docker image
 
 ```
-docker run --name container-appium -d -P appium/appium-docker-android
+docker run --name container-appium -d -P --privileged -v /dev/bus/usb:/dev/bus/usb appium/appium-docker-android
+
 ```
 
 6. bash into the container to verify adb devices can detect the android device connected.
