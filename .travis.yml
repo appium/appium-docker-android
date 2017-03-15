@@ -1,12 +1,24 @@
-sudo: required
+sudo: false
 
 services:
   - docker
 
+language: bash
+
+env:
+  - DIR=Appium
+  - DIR=AppiumEmulator
 script:
-  - docker build -t appium .
-  - docker run -d --name appium_android appium
-  - docker ps -a
-  - docker exec appium_android /bin/sh -c "appium-doctor --android"
-  - docker exec appium_android /bin/sh -c "android list"
-  - docker exec appium_android /bin/sh -c "adb devices"
+  - cd $DIR && docker build -t appium .
+  - cd $DIR && docker run -d --name appium_android appium
+  - cd $DIR && docker ps -a
+  - cd $DIR && docker exec appium_android /bin/sh -c "android list"
+  - cd $DIR && docker exec appium_android /bin/sh -c "adb devices"
+  - VERSION="$TRAVIS_BRANCH" make build
+
+after_success:
+  - if [[ "$TRAVIS_TAG" == "$LATEST"* ]]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    VERSION="$TRAVIS_TAG" make tag_latest;
+    VERSION="latest" make release_latest;
+    fi
