@@ -1,4 +1,4 @@
-##Setting up Android real device test on Docker macOSX
+## Setting up Android real device test on Docker macOSX
 
 1. Make sure you have latest docker installed on mac.
 ```aidl
@@ -8,11 +8,11 @@ docker-machine version 0.10.0, build 76ed2a6
 2. Create a docker-machine as follows 
 
 ```aidl
-* docker-machine create --driver virtualbox appium-test-machine
+ docker-machine create --driver virtualbox appium-test-machine
 ```
 3. Open Virtual box, move to appium-test-machine created,select USB and add Android device and Host Controller.
 
-![ScreenShot](https://ibb.co/cZYAGF)
+![alt tag] (https://ibb.co/cZYAGF)
 
 4. SSH into the docker machine created and build/download the appium docker image
 
