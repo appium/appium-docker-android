@@ -12,7 +12,7 @@ docker-machine version 0.10.0, build 76ed2a6
 ```
 3. Open Virtual box, move to appium-test-machine created,select USB and add Android device and Host Controller.
 
-![alt tag] (https://ibb.co/cZYAGF)
+![alt tag](https://raw.githubusercontent.com/saikrishna321/appium-docker-android/master/Appium/Screen_Shot_2017_03_14_at_8_27_33_PM.png)
 
 4. SSH into the docker machine created and build/download the appium docker image
 
