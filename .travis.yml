@@ -14,7 +14,6 @@ script:
   - docker ps -a
   - docker exec appium_android /bin/sh -c "android list"
   - docker exec appium_android /bin/sh -c "adb devices"
-  - VERSION="$TRAVIS_BRANCH" make build
 
 after_success:
   - if [[ "$TRAVIS_TAG" == "$LATEST"* ]]; then
