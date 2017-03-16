@@ -10,10 +10,10 @@ env:
   - DIR=AppiumEmulator
 script:
   - cd $DIR && docker build -t appium .
-  - cd $DIR && docker run -d --name appium_android appium
-  - cd $DIR && docker ps -a
-  - cd $DIR && docker exec appium_android /bin/sh -c "android list"
-  - cd $DIR && docker exec appium_android /bin/sh -c "adb devices"
+  - docker run -d --name appium_android appium
+  - docker ps -a
+  - docker exec appium_android /bin/sh -c "android list"
+  - docker exec appium_android /bin/sh -c "adb devices"
   - VERSION="$TRAVIS_BRANCH" make build
 
 after_success:
