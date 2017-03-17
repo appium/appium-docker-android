@@ -8,6 +8,11 @@ language: bash
 env:
   - DIR=Appium
   - DIR=AppiumEmulator
+
+before_install:
+  - docker info
+  - VERSION="$TRAVIS_BRANCH" make build
+  
 script:
   - cd $DIR && docker build -t appium .
   - docker run -d --name appium_android appium
