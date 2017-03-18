@@ -8,7 +8,6 @@ language: bash
 before_install:
   - docker info
   - VERSION="$TRAVIS_BRANCH" make build
-  - docker build -t test:local ./Test
 
 after_success:
   - cd ..
