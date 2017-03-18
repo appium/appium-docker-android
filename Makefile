@@ -4,7 +4,7 @@ VERSION := latest
 all: Appium AppiumEmulator
 
 build: all
-	
+
 Appium:
 	cd ./Appium && docker build -t $(NAME)/appium:$(VERSION) .
 
@@ -18,3 +18,10 @@ tag_latest:
 release_latest:
 	docker push $(NAME)/appium:latest
 	docker push $(NAME)/appium-emulator:latest
+
+.PHONY: \
+	all \
+	build \
+	Appium \
+	AppiumEmulator \
+	tag_latest
