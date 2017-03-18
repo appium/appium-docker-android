@@ -5,20 +5,10 @@ services:
 
 language: bash
 
-env:
-  - DIR=Appium
-  - DIR=AppiumEmulator
-
 before_install:
   - docker info
   - VERSION="$TRAVIS_BRANCH" make build
-
-script:
-  - cd $DIR && docker build -t appium .
-  - docker run -d --name appium_android appium
-  - docker ps -a
-  - docker exec appium_android /bin/sh -c "android list"
-  - docker exec appium_android /bin/sh -c "adb devices"
+  - docker build -t test:local ./Test
 
 after_success:
   - cd ..
