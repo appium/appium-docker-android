@@ -3,6 +3,8 @@ VERSION := latest
 
 all: Appium AppiumEmulator
 
+build: all
+	
 Appium:
 	cd ./Appium && docker build -t $(NAME)/appium:$(VERSION) .
 
