@@ -12,7 +12,7 @@ env:
 before_install:
   - docker info
   - VERSION="$TRAVIS_BRANCH" make build
-  
+
 script:
   - cd $DIR && docker build -t appium .
   - docker run -d --name appium_android appium
@@ -21,6 +21,7 @@ script:
   - docker exec appium_android /bin/sh -c "adb devices"
 
 after_success:
+  - cd ..
   - if [[ "$TRAVIS_TAG" == "$LATEST"* ]]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     VERSION="$TRAVIS_TAG" make tag_latest;
