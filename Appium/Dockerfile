@@ -64,12 +64,7 @@ RUN dpkg --add-architecture i386 && \
     echo y | android update sdk -a -u -t platform-tools,build-tools-${ANDROID_BUILD_TOOLS_VERSION} && \
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME && \
-    adb start-server && \
-
-#===============================================================
-# Display JAVA version
-#===============================================================
-    java -version
+    adb start-server
 
 #===============================================================
 # Includes latest node LTS, Appium & Appium Doctor version
@@ -81,27 +76,11 @@ WORKDIR "/opt/node"
 
 RUN curl -sL https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz | tar xz --strip-components=1 && \
     npm install -g appium@beta --no-shrinkwrap  && \
-    npm install appium-doctor -g && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    apt-get clean && \
-
-#=======================================
-# Display Node version
-#=======================================
-    node -v && \
-
-#=======================================
-# Display npm version
-#=======================================
-    npm -v && \
-
-#=======================================
-# Check health of Appium Android
-#=======================================
-    appium-doctor --android
+    apt-get clean
 
 #============================================
 # Add udev rules file with USB configuration
