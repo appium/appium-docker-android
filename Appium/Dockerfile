@@ -92,7 +92,7 @@ RUN mkdir /etc/udev/rules.d && \
 #=======================================
 # Expose default port of appium
 #=======================================
-EXPOSE 4723 5900
+EXPOSE 4723
 
 VOLUME /Automation
 

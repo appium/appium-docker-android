@@ -19,12 +19,12 @@ $ docker-machine create --driver virtualbox appium-test-machine
 ```
 $ docker-machine ssh appium-test-machine
 
-$ docker build -t appium/appium-docker-android github.com/appium/appium-docker-android
+$ docker build -t appium/appium github.com/appium/appium-docker-android/appium
 ```
 
 5. Run the docker image
 ```
-$ docker run --name container-appium -d -P --privileged -v /dev/bus/usb:/dev/bus/usb appium/appium-docker-android
+$ docker run --name container-appium -d -P --privileged -v /dev/bus/usb:/dev/bus/usb appium/appium
 ```
 
 6. bash into the container to verify adb devices can detect the android device connected.
