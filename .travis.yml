@@ -10,6 +10,10 @@ before_install:
   - VERSION="$TRAVIS_BRANCH" make build
 
 after_success:
+  - if [ "$TRAVIS_TAG" != "" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    VERSION="$TRAVIS_TAG" make release;
+    fi
   - if [[ "$TRAVIS_TAG" == "$LATEST"* ]]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     VERSION="$TRAVIS_TAG" make tag_latest;
