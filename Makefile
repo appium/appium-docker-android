@@ -42,5 +42,5 @@ release: tag_major_minor
 	build \
 	Appium \
 	AppiumEmulator \
-	tag_latest \
-	release
+	release	\
+	tag_latest
