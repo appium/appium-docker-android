@@ -2,20 +2,24 @@ sudo: false
 
 services:
   - docker
-
+  
 language: bash
 
 before_install:
-  - docker info
-  - VERSION="$TRAVIS_BRANCH" make build
-
+  - docker -v
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  
+script:
+  - docker build -t "appium/appium:latest" -f Appium/Dockerfile .
+  - docker build -t "appium/appium-emulator:latest" -f AppiumEmulator/Dockerfile .
+  
 after_success:
-  - if [ "$TRAVIS_TAG" != "" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    VERSION="$TRAVIS_TAG" make release;
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ "$TRAVIS_TAG" != "" ]]; then
+    docker tag "appium/appium:latest" "appium/appium:$TRAVIS_TAG" && docker push "appium/appium:$TRAVIS_TAG" ;
+    docker tag "appium/appium-emulator:latest" "appium/appium-emulator:$TRAVIS_TAG" && docker push "appium/appium-emulator:$TRAVIS_TAG" ;
     fi
-  - if [[ "$TRAVIS_TAG" == "$LATEST"* ]]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    VERSION="$TRAVIS_TAG" make tag_latest;
-    VERSION="latest" make release_latest;
+    
+  - if [[ $TRAVIS_BRANCH == 'master' ]]; then 
+    docker tag "appium/appium:latest" "appium/appium:latest" && docker push "appium/appium:latest" ;
+    docker tag "appium/appium-emulator:latest" "appium/appium-emulator:latest" && docker push "appium/appium-emulator:latest" ;
     fi
