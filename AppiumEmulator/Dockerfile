@@ -1,4 +1,4 @@
-FROM appium/appium:1.0.0-arsenal
+FROM appium/appium
 
 MAINTAINER Srinivasan Sekar <srinivasan.sekar1990@gmail.com>
 
