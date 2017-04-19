@@ -75,7 +75,7 @@ ENV NODEJS_VERSION=7.2.0 \
 WORKDIR "/opt/node"
 
 RUN curl -sL https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.gz | tar xz --strip-components=1 && \
-    npm install -g appium --no-shrinkwrap  && \
+    npm install -g appium@1.6.5-beta --no-shrinkwrap  && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
