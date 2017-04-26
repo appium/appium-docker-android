@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/appium/appium-docker-android.svg?branch=master)](https://travis-ci.org/appium/appium-docker-android)
+[![Docker Pulls](https://img.shields.io/docker/pulls/appium/appium.svg?style=flat-square)](https://hub.docker.com/r/appium/appium/)
+[![](https://images.microbadger.com/badges/image/appium/appium.svg)](https://microbadger.com/images/appium/appium)
+[![GitHub stars](https://img.shields.io/github/stars/appium/appium-docker-android.svg?style=flat-square)](https://github.com/appium/appium-docker-android/stargazers)
 
 # Appium Docker for Android
 
