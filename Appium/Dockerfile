@@ -1,14 +1,11 @@
 FROM ubuntu:16.04
 
-MAINTAINER Srinivasan Sekar <srinivasan.sekar1990@gmail.com>
+LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
 
 WORKDIR /root
 
-ENV DEBIAN_FRONTEND noninteractive \
-    DEBCONF_NONINTERACTIVE_SEEN true \
-
-    JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
-    PATH=$PATH:$JAVA_HOME/bin
+ENV DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NONINTERACTIVE_SEEN=true
 
 #================================================================
 # Customize sources for apt-get
@@ -55,6 +52,9 @@ RUN apt-get update -qqy && \
   apt-get -qyy autoremove && \
   rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
+ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
+    PATH=$PATH:$JAVA_HOME/bin
+
 ENV ANDROID_BUILD_TOOLS_VERSION=25.0.3 \
     ANDROID_HOME=/root
 
@@ -82,6 +82,12 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     wget --no-verbose $UDEV_REMOTE_FILE -O /etc/udev/rules.d/51-android.rules && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
+
+ENV TZ="US/Pacific"
+
+RUN echo "Configure time zone to '${TZ}'" && \
+    echo "${TZ}" > /etc/timezone && \
+    dpkg-reconfigure --frontend noninteractive tzdata
 
 #=======================================
 # Expose default port of appium
