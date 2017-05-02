@@ -2,73 +2,69 @@ FROM ubuntu:16.04
 
 LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
 
+ENV DEBIAN_FRONTEND=noninteractive
+
+#=============
+# Set WORKDIR
+#=============
 WORKDIR /root
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    DEBCONF_NONINTERACTIVE_SEEN=true
-
-#================================================================
-# Customize sources for apt-get
-#================================================================
-RUN echo "deb http://archive.ubuntu.com/ubuntu xenial main universe\n" > /etc/apt/sources.list && \
-    echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main universe\n" >> /etc/apt/sources.list && \
-    echo "deb http://security.ubuntu.com/ubuntu xenial-security main universe\n" >> /etc/apt/sources.list && \
-
-#================================================================
-# Miscellaneous packages
-# Includes minimal runtime used for executing non GUI Java programs
-#================================================================
-    apt-get update -qqy && \
+#==================
+# General Packages
+#------------------
+# openjdk-8-jre-headless
+#   Java
+# ca-certificates
+#   SSL client
+# tzdata
+#   Timezone
+# unzip
+#   Unzip zip file
+# curl
+#   Transfer data from or to a server
+# wget
+#   Network downloader
+# libqt5webkit5
+#   Web content engine (Fix issue in Android)
+#==================
+RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
+    openjdk-8-jre-headless \
     ca-certificates \
-    openjdk-8-jre-headless && \
-    sed -i 's/securerandom.source=file:\/dev\/urandom/securerandom.source=file:\/dev\/.\/urandom/g' \
-       /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.security && \
-    sed -i 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/.\/urandom/g' \
-       /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.security && \
-    apt-get -qyy autoremove && \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-
-RUN apt-get update -qqy && \
-    apt-get -qqy --no-install-recommends install \
     tzdata \
+    unzip \
     curl \
-    xvfb \
-    x11vnc \
     wget \
     libqt5webkit5 \
-    unzip && \
+  && rm -rf /var/lib/apt/lists/*
 
-#=======================================
-# Setting JAVA_HOME in PATH
-#=======================================
-  { \
-		echo '#!/bin/sh'; \
-		echo 'set -e'; \
-		echo; \
-		echo 'dirname "$(dirname "$(readlink -f "$(which javac || which java)")")"'; \
-	} > /usr/local/bin/docker-java-home && \
-	chmod +x /usr/local/bin/docker-java-home && \
-  apt-get -qyy autoremove && \
-  rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-
+#===============
+# Set JAVA_HOME
+#===============
 ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
     PATH=$PATH:$JAVA_HOME/bin
 
-ENV ANDROID_BUILD_TOOLS_VERSION=25.0.3 \
+#=====================
+# Install Android SDK
+#=====================
+ENV SDK_VERSION=25.2.3 \
+    ANDROID_BUILD_TOOLS_VERSION=25.0.3 \
     ANDROID_HOME=/root
 
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
-
-#================================================================
-# Includes Android SDK
-#================================================================
-RUN wget -O tools.zip https://dl.google.com/android/repository/tools_r25.2.3-linux.zip && \
+RUN wget -O tools.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip && \
     unzip tools.zip && rm tools.zip && \
-    echo y | android update sdk -a -u -t platform-tools,build-tools-${ANDROID_BUILD_TOOLS_VERSION} && \
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME
 
+ENV PATH=$PATH:$ANDROID_HOME/tools
+
+RUN echo y | android update sdk -a -u -t platform-tools,build-tools-${ANDROID_BUILD_TOOLS_VERSION}
+
+ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
+
+#====================================
+# Install latest nodejs, npm, appium
+#====================================
 ENV APPIUM_VERSION=1.6.5-beta \
     UDEV_REMOTE_FILE=https://raw.githubusercontent.com/M0Rf30/android-udev-rules/master/51-android.rules
 
@@ -83,15 +79,21 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
 
+#==================================
+# Fix Issue with timezone mismatch
+#==================================
 ENV TZ="US/Pacific"
+RUN echo "${TZ}" > /etc/timezone
 
-RUN echo "Configure time zone to '${TZ}'" && \
-    echo "${TZ}" > /etc/timezone && \
-    dpkg-reconfigure --frontend noninteractive tzdata
+#===============
+# Expose Ports
+#---------------
+# 4723
+#   Appium port
+#===============
+EXPOSE 4723
 
-#=======================================
-# Expose default port of appium
-#=======================================
-EXPOSE 4723 5900
-
+#===================
+# Run appium server
+#===================
 CMD appium
