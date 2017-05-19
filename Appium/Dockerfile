@@ -12,7 +12,7 @@ WORKDIR /root
 #==================
 # General Packages
 #------------------
-# openjdk-8-jre-headless
+# openjdk-8-jre
 #   Java
 # ca-certificates
 #   SSL client
@@ -29,7 +29,7 @@ WORKDIR /root
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
-    openjdk-8-jre-headless \
+    openjdk-8-jre \
     ca-certificates \
     tzdata \
     unzip \
