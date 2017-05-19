@@ -65,8 +65,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 #====================================
 # Install latest nodejs, npm, appium
 #====================================
-ENV APPIUM_VERSION=1.6.5-beta \
-    UDEV_REMOTE_FILE=https://raw.githubusercontent.com/M0Rf30/android-udev-rules/master/51-android.rules
+ENV APPIUM_VERSION=1.6.5-beta
 
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get -qqy install nodejs && \
@@ -74,8 +73,6 @@ RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
-    mkdir /etc/udev/rules.d && \
-    wget --no-verbose $UDEV_REMOTE_FILE -O /etc/udev/rules.d/51-android.rules && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
 
