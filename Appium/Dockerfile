@@ -26,6 +26,8 @@ WORKDIR /root
 #   Network downloader
 # libqt5webkit5
 #   Web content engine (Fix issue in Android)
+# bats
+#   Testing framework for Bash
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
@@ -36,6 +38,7 @@ RUN apt-get -qqy update && \
     curl \
     wget \
     libqt5webkit5 \
+    bats \
   && rm -rf /var/lib/apt/lists/*
 
 #===============
@@ -89,6 +92,11 @@ RUN echo "${TZ}" > /etc/timezone
 #   Appium port
 #===============
 EXPOSE 4723
+
+#====================
+# Add Unit test file
+#====================
+COPY Appium/tests /root/tests
 
 #===================
 # Run appium server
