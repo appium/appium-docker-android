@@ -38,7 +38,7 @@
 
 4. Open Virtual box, move to appium-test-machine created, select USB and add Android device and Host Controller.
 
-	![alt tag](virtualbox.png)
+	![alt tag](Appium/virtualbox.png)
 
 5. SSH into the docker machine created
 
