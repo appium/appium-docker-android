@@ -28,6 +28,8 @@ WORKDIR /root
 #   Web content engine (Fix issue in Android)
 # bats
 #   Testing framework for Bash
+# libgconf-2-4
+#   Required package for chrome and chromedriver to run on Linux
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
@@ -39,6 +41,7 @@ RUN apt-get -qqy update && \
     wget \
     libqt5webkit5 \
     bats \
+    libgconf-2-4 \
   && rm -rf /var/lib/apt/lists/*
 
 #===============
