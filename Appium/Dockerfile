@@ -30,6 +30,8 @@ WORKDIR /root
 #   Testing framework for Bash
 # libgconf-2-4
 #   Required package for chrome and chromedriver to run on Linux
+# xvfb
+#   X virtual framebuffer
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
@@ -42,6 +44,7 @@ RUN apt-get -qqy update && \
     libqt5webkit5 \
     bats \
     libgconf-2-4 \
+    xvfb \
   && rm -rf /var/lib/apt/lists/*
 
 #===============
@@ -102,6 +105,6 @@ EXPOSE 4723
 COPY Appium/tests /root/tests
 
 #===================
-# Run appium server
+# Run xvfb and appium server
 #===================
-CMD appium
+CMD xvfb-run appium
