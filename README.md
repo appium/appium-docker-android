@@ -8,7 +8,7 @@
 
 ### Images Included:
 
-- appium/appium - Docker Image to run appium tests on real android devices. See doc [here](https://github.com/appium/appium-docker-android/blob/master/Appium/README.md)
+- appium/appium - Docker Image to run appium tests on real android devices.
 - To execute in android emulator's please visit [docker-android](https://github.com/butomo1989/docker-appium.git)
 
 ## Setting up Android real device test on Docker macOSX
