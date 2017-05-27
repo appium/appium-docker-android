@@ -28,6 +28,10 @@ WORKDIR /root
 #   Web content engine (Fix issue in Android)
 # bats
 #   Testing framework for Bash
+# libgconf-2-4
+#   Required package for chrome and chromedriver to run on Linux
+# xvfb
+#   X virtual framebuffer
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
@@ -39,6 +43,8 @@ RUN apt-get -qqy update && \
     wget \
     libqt5webkit5 \
     bats \
+    libgconf-2-4 \
+    xvfb \
   && rm -rf /var/lib/apt/lists/*
 
 #===============
@@ -68,7 +74,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 #====================================
 # Install latest nodejs, npm, appium
 #====================================
-ENV APPIUM_VERSION=1.6.5-beta
+ENV APPIUM_VERSION=1.6.5
 
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get -qqy install nodejs && \
@@ -99,6 +105,6 @@ EXPOSE 4723
 COPY Appium/tests /root/tests
 
 #===================
-# Run appium server
+# Run xvfb and appium server
 #===================
-CMD appium
+CMD xvfb-run appium
