@@ -10,7 +10,7 @@ before_install:
 
 script:
   - docker build -t "appium/appium:latest" -f Appium/Dockerfile .
-  - docker run --rm "appium/appium:latest" bats tests/image.bats
+  - docker run --rm "appium/appium:latest" bats tests
 
 after_success:
   - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ "$TRAVIS_TAG" != "" ]]; then

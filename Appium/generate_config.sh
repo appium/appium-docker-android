@@ -1,8 +1,6 @@
 #!/bin/bash
 
-if [ -z "$PLATFORM"]; then
-  PLATFORM="Android"
-fi
+json=$1
 
 if [ -z "$PLATFORM_NAME" ]; then
   PLATFORM_NAME="Android"
@@ -28,23 +26,36 @@ if [ -z "$BROWSER_NAME" ]; then
   BROWSER_NAME="android"
 fi
 
-if [ -z "$OS_VERSION" ]; then
-  OS_VERSION="7.1.1"
-fi
+#Get device names
+devices=($(adb devices | grep -oP "\K(\w+)(?=\tdevice)"))
 
-if [ -z "$DEVICE_NAME" ]; then
-  DEVICE_NAME="Android Phone"
-fi
-
-cat <<_EOF
+#Create capabilities json configs
+function create_capabilities() {
+  capabilities=""
+  for name in ${devices[@]}; do
+    os_version="$(adb -s "$name" shell getprop ro.build.version.release | tr -d '\r')"
+    capabilities+=$(cat <<_EOF
 {
-  "capabilities": [{
-      "platformName": "$PLATFORM_NAME",
-      "version": "$OS_VERSION",
-      "browserName": "$BROWSER_NAME",
-      "deviceName": "$DEVICE_NAME",
-      "maxInstances": 1
-  }],
+    "platform": "$PLATFORM_NAME",
+    "platformName": "$PLATFORM_NAME",
+    "version": "$os_version",
+    "browserName": "$BROWSER_NAME",
+    "deviceName": "$name",
+    "maxInstances": 1
+  }
+_EOF
+    )
+    if [ ${devices[-1]} != $name ]; then
+      capabilities+=', '
+    fi
+  done
+  echo "$capabilities"
+}
+
+#Final node configuration json string
+nodeconfig=$(cat <<_EOF
+{
+  "capabilities": [$(create_capabilities)],
   "configuration": {
     "cleanUpCycle": 2000,
     "timeout": 30000,
@@ -60,3 +71,5 @@ cat <<_EOF
   }
 }
 _EOF
+)
+echo "$nodeconfig" > $json
