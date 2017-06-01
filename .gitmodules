@@ -1,0 +1,3 @@
+[submodule "Appium/tests/helpers/mocks"]
+	path = Appium/tests/helpers/mocks
+	url = https://github.com/jasonkarns/bats-mock
