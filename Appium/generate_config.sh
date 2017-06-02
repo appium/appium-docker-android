@@ -1,6 +1,6 @@
 #!/bin/bash
 
-json=$1
+node_config_json=$1
 
 if [ -z "$PLATFORM_NAME" ]; then
   PLATFORM_NAME="Android"
@@ -27,13 +27,13 @@ if [ -z "$BROWSER_NAME" ]; then
 fi
 
 #Get device names
-devices=($(adb devices | grep -oP "\K(\w+)(?=\tdevice)"))
+devices=($(adb devices | grep -oP "\K(\w+)(?=\sdevice(\W|$))"))
 
 #Create capabilities json configs
 function create_capabilities() {
   capabilities=""
   for name in ${devices[@]}; do
-    os_version="$(adb -s "$name" shell getprop ro.build.version.release | tr -d '\r')"
+    os_version="$(adb -s $name shell getprop ro.build.version.release | tr -d '\r')"
     capabilities+=$(cat <<_EOF
 {
     "platform": "$PLATFORM_NAME",
@@ -72,4 +72,4 @@ nodeconfig=$(cat <<_EOF
 }
 _EOF
 )
-echo "$nodeconfig" > $json
+echo "$nodeconfig" > $node_config_json
