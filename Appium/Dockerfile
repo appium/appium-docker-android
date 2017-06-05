@@ -26,8 +26,6 @@ WORKDIR /root
 #   Network downloader
 # libqt5webkit5
 #   Web content engine (Fix issue in Android)
-# bats
-#   Testing framework for Bash
 # libgconf-2-4
 #   Required package for chrome and chromedriver to run on Linux
 # xvfb
@@ -42,7 +40,6 @@ RUN apt-get -qqy update && \
     curl \
     wget \
     libqt5webkit5 \
-    bats \
     libgconf-2-4 \
     xvfb \
   && rm -rf /var/lib/apt/lists/*
@@ -98,11 +95,6 @@ RUN echo "${TZ}" > /etc/timezone
 #   Appium port
 #===============
 EXPOSE 4723
-
-#====================
-# Add Unit test file
-#====================
-COPY Appium/tests /root/tests
 
 #====================================================
 # Scripts to run appium and connect to Selenium Grid
