@@ -104,7 +104,17 @@ EXPOSE 4723
 #====================
 COPY Appium/tests /root/tests
 
-#===================
+#====================================================
+# Scripts to run appium and connect to Selenium Grid
+#====================================================
+COPY \
+  Appium/entry_point.sh \
+  Appium/generate_config.sh \
+    /root/
+RUN chmod +x /root/entry_point.sh
+RUN chmod +x /root/generate_config.sh
+
+#========================================
 # Run xvfb and appium server
-#===================
-CMD xvfb-run appium
+#========================================
+CMD ["/root/entry_point.sh"]
