@@ -49,7 +49,7 @@
 6. Run the docker image
 
 	```
-	$ docker run --name container-appium -d -P --privileged -v /dev/bus/usb:/dev/bus/usb appium/appium
+	$ docker run --privileged -d -p 4723:4723  -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 	```
 
 7. Plug in devices after container is running; otherwise it will shows nothing.
@@ -76,3 +76,17 @@
 	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
 	}
 	```
+	
+## Connect to Selenium Grid
+
+Appium-Docker-Android can be connected with selenium grid by passing following parameters:
+
+- CONNECT\_TO\_GRID=True
+- APPIUM\_HOST=\<ip\_address\_of\_appium\_server>
+- APPIUM\_PORT=\<port\_of\_appium\_server>
+- SELENIUM\_HOST=\<ip\_address\_of\_selenium\_hub>
+- SELENIUM\_PORT=\<port\_of\_selenium\_hub>
+
+```
+$ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
+```
