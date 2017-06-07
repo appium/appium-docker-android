@@ -2,7 +2,8 @@
 
 #Install bats
 echo "Installing Bats before test execution"
-/root/tests/helpers/bats/install.sh /usr/local
+npm install bats@0.4.2
+npm install bats-mock@1.0.1
 
 #Run tests
-bats /root/tests/*.bats
+./node_modules/.bin/bats /root/tests/*.bats

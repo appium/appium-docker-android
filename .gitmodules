@@ -1,6 +1,0 @@
-[submodule "Appium/tests/helpers/mocks"]
-	path = Appium/tests/helpers/mocks
-	url = https://github.com/jasonkarns/bats-mock
-[submodule "Appium/tests/helpers/bats"]
-	path = Appium/tests/helpers/bats
-	url = https://github.com/sstephenson/bats
