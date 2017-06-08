@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-load helpers/mocks/stub
+load ../node_modules/bats-mock/stub
 
 default_node_config=\
 '{
