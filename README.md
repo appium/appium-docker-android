@@ -90,3 +90,10 @@ Appium-Docker-Android can be connected with selenium grid by passing following p
 ```
 $ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 ```
+
+### Docker compose
+There is [an example of compose file](docker-compose.yml) to simulate the connection between selenium hub and appium server mit connected device(s) in docker solution.
+
+```
+$ docker-compose up -d
+```

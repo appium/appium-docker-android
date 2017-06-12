@@ -1,0 +1,24 @@
+# Note: It requires docker-compose 1.6.0+
+#
+# Usage: docker-compose up -d
+version: '2'
+
+services:
+  # Selenium hub
+  selenium_hub:
+    image: selenium/hub:3.4.0
+    ports:
+      - 4444:4444
+
+  # Appium Docker Android
+  appium_devices:
+    image: appium/appium
+    depends_on:
+      - selenium_hub
+    network_mode: "service:selenium_hub"
+    privileged: true
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    environment:
+      - CONNECT_TO_GRID=True
+      - SELENIUM_HOST=selenium_hub
