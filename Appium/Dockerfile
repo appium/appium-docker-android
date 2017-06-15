@@ -53,8 +53,10 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 #=====================
 # Install Android SDK
 #=====================
-ENV SDK_VERSION=25.2.3 \
-    ANDROID_BUILD_TOOLS_VERSION=25.0.3 \
+ARG SDK_VERSION=25.2.3
+ARG ANDROID_BUILD_TOOLS_VERSION=25.0.3
+ENV SDK_VERSION=$SDK_VERSION \
+    ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
     ANDROID_HOME=/root
 
 RUN wget -O tools.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip && \
@@ -71,7 +73,8 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 #====================================
 # Install latest nodejs, npm, appium
 #====================================
-ENV APPIUM_VERSION=1.6.6-beta
+ARG APPIUM_VERSION=1.6.6-beta
+ENV APPIUM_VERSION=$APPIUM_VERSION
 
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
     apt-get -qqy install nodejs && \
