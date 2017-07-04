@@ -13,20 +13,26 @@
 
 ## Setting up Android real device test on Docker macOSX
 
-1. Make sure you have latest docker installed on mac.
+1. Why is this approach needed at first place?
+     
+    - Helps in quick & easier setup of automation environment for appium + android
+    - Without this approach, you'll need to do each of the automation setup steps manually; which can be slow and error prone
+    - Refer to [Selenium Conference Youtube video](https://www.youtube.com/watch?v=jGW6ycW_tTQ&list=PLRdSclUtJDYXFVU37NEqh4KkT78BLqjcG&index=7) for more details
+
+2. Make sure you have latest docker installed on mac.
 
 	```
 	$ docker-machine --version
 	$ docker-machine version 0.10.0, build 76ed2a6
 	```
 
-2. Create a docker-machine as follows
+3. Create a docker-machine as follows
 
 	```
 	$ docker-machine create --driver virtualbox appium-test-machine
 	```
 
-3. Enable USB in created docker-machine
+4. Enable USB in created docker-machine
 
 	```
 	$ docker-machine stop appium-test-machine
@@ -36,31 +42,31 @@
 	***Note:***
 	You need to install [Extension Pack](https://www.virtualbox.org/wiki/Download_Old_Builds_5_1) depends on your virtualbox version, in case you get an Error "Implementation of the USB 2.0 controller not found"
 
-4. Open Virtual box, move to appium-test-machine created, select USB and add Android device and Host Controller.
+5. Open Virtual box, move to appium-test-machine created, select USB and add Android device and Host Controller.
 
 	![alt tag](Appium/virtualbox.png)
 
-5. SSH into the docker machine created
+6. SSH into the docker machine created
 
 	```
 	$ docker-machine ssh appium-test-machine
 	```
 
-6. Run the docker image
+7. Run the docker image
 
 	```
 	$ docker run --privileged -d -p 4723:4723  -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 	```
 
-7. Plug in devices after container is running; otherwise it will shows nothing.
+8. Plug in devices after container is running; otherwise it will shows nothing.
 
-8. Run following command to verify adb devices can detect the connected android device.
+9. Run following command to verify adb devices can detect the connected android device.
 
 	```
 	$ docker exec -it container-appium bash "adb devices"
 	```
 
-9. Run UI Test with following test configuration
+10. Run UI Test with following test configuration
 
 	```
 	Push the apk file into the container
