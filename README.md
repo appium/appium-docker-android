@@ -13,11 +13,11 @@
 
 ## Setting up Android real device test on Docker macOSX
 
-1. Why is this needed ?
+1. Why is this approach needed at first place?
      
-       1.1  Helps in quick setup of automation environment for appium + android
-       1.2  Without this approach, you'll need to do each of the automation setup steps manually which can be slow and error prone
-       1.2  Refer to [YouTube video](https://www.youtube.com/watch?v=jGW6ycW_tTQ&list=PLRdSclUtJDYXFVU37NEqh4KkT78BLqjcG&index=7) for more details
+  - Helps in quick & easier setup of automation environment for appium + android
+  - Without this approach, you'll need to do each of the automation setup steps manually; which can be slow and error prone
+  - Refer to [video](https://www.youtube.com/watch?v=jGW6ycW_tTQ&list=PLRdSclUtJDYXFVU37NEqh4KkT78BLqjcG&index=7) for more details
 
 2. Make sure you have latest docker installed on mac.
 
