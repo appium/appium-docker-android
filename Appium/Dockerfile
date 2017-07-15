@@ -53,21 +53,24 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 #=====================
 # Install Android SDK
 #=====================
-ARG SDK_VERSION=25.2.3
-ARG ANDROID_BUILD_TOOLS_VERSION=25.0.3
+ARG SDK_VERSION=sdk-tools-linux-3859397
+ARG ANDROID_BUILD_TOOLS_VERSION=26.0.0
 ENV SDK_VERSION=$SDK_VERSION \
     ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
     ANDROID_HOME=/root
 
-RUN wget -O tools.zip https://dl.google.com/android/repository/tools_r${SDK_VERSION}-linux.zip && \
+RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zip && \
     unzip tools.zip && rm tools.zip && \
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME
+ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
 
-ENV PATH=$PATH:$ANDROID_HOME/tools
+# https://askubuntu.com/questions/885658/android-sdk-repositories-cfg-could-not-be-loaded
+RUN mkdir -p ~/.android
+RUN touch ~/.android/repositories.cfg
 
-RUN echo y | android update sdk -a -u -t platform-tools,build-tools-${ANDROID_BUILD_TOOLS_VERSION}
-
+RUN echo y | sdkmanager "platform-tools"
+RUN echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 
 #====================================
