@@ -82,6 +82,18 @@
 	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
 	}
 	```
+
+### Connect to Android devices by Air
+
+Appium-Docker-Android can be connected with Android devices by Air by passing following parameters:
+
+- REMOTE\_ADB=True
+- ANDROID\_DEVICES=\<android\_device\_host\>:\<android\_device\_port\> \[,\<android\_device\_host\>:\<android\_device\_port\>\]
+
+```
+$ docker run -d -p 4723:4723 -e REMOTE_ADB=True -e ANDROID_DEVICES=192.168.0.5:5555,192.168.0.6:5555
+
+``` 
 	
 ## Connect to Selenium Grid
 

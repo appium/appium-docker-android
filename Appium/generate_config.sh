@@ -26,6 +26,18 @@ if [ -z "$BROWSER_NAME" ]; then
   BROWSER_NAME="android"
 fi
 
+if [ ! -z "$REMOTE_ADB" ]; then
+    if [ ! -z "$ANDROID_DEVICES" ]; then
+        IFS=',' read -r -a array <<< "$ANDROID_DEVICES"
+        for i in "${!array[@]}"
+        do
+            echo "Connecting to: ${array[$i]}"
+            adb connect ${array[$i]}
+            echo "Success!"
+        done
+    fi
+fi
+
 #Get device names
 devices=($(adb devices | grep -oP "\K(\w+)(?=\sdevice(\W|$))"))
 
