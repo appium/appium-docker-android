@@ -85,7 +85,11 @@
 
 ### Connect to Android devices by Air
 
-Appium-Docker-Android can be connected with Android devices by Air by passing following parameters:
+Appium-Docker-Android can be connected with Android devices by Air.
+
+To do that you need to configure android device, according to [official manual](https://developer.android.com/studio/command-line/adb.html#wireless)
+
+Then run docker container with following parameters:
 
 - REMOTE\_ADB=True
 - ANDROID\_DEVICES=\<android\_device\_host\>:\<android\_device\_port\> \[,\<android\_device\_host\>:\<android\_device\_port\>\]
