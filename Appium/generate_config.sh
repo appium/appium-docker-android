@@ -39,7 +39,7 @@ if [ ! -z "$REMOTE_ADB" ]; then
 fi
 
 #Get device names
-devices=($(adb devices | grep -oP "\K(\w+)(?=\sdevice(\W|$))"))
+devices=($(adb devices | grep -oP "\K(.+)(?=\sdevice(\W|$))"))
 
 #Create capabilities json configs
 function create_capabilities() {
