@@ -35,11 +35,14 @@ if [ ! -z "$REMOTE_ADB" ]; then
             adb connect ${array[$i]}
             echo "Success!"
         done
+        #Give time to finish connection
+        sleep 1
     fi
 fi
 
 #Get device names
 devices=($(adb devices | grep -oP "\K(.+)(?=\sdevice(\W|$))"))
+echo "Devices found: ${#devices[@]}"
 
 #Create capabilities json configs
 function create_capabilities() {
