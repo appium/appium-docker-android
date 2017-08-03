@@ -83,7 +83,7 @@
 	}
 	```
 
-### Connect to Android devices by Air
+## Connect to Android devices by Air
 
 Appium-Docker-Android can be connected with Android devices by Air.
 
