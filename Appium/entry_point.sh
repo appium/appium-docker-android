@@ -8,4 +8,6 @@ if [ ! -z "$CONNECT_TO_GRID" ]; then
   CMD+=" --nodeconfig $NODE_CONFIG_JSON"
 fi
 
+pkill -x xvfb-run
+
 $CMD
