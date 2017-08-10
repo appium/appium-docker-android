@@ -63,7 +63,7 @@
 9. Run following command to verify adb devices can detect the connected android device.
 
 	```
-	$ docker exec -it container-appium bash "adb devices"
+	$ docker exec -it container-appium adb devices
 	```
 
 10. Run UI Test with following test configuration
