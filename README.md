@@ -82,6 +82,23 @@
 	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
 	}
 	```
+### Share Android identification key
+
+Each time, you will (re)create container, connected to container devices will ask for authorization after first
+ connection.  To prevent that, you can share one identity through all created containers. To do that, you should: 
+ 
+- Connect all devices to docker physical machine
+- Run `adb devices`
+- Authorize all devices (do not forget to check **Always allow this computer**)
+
+![Always allow this computer screenshot](Appium/authorization.png)
+ 
+- run your containers with parameter `-v ~/.android:/root/.android`
+
+For example:
+```
+$ docker run --privileged -d -p 4723:4723 -v ~/.android:/root/.android -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
+``` 
 
 ### Connect to Android devices by Air
 
