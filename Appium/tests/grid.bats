@@ -21,7 +21,7 @@ default_node_config=\
   }],
   "configuration": {
     "cleanUpCycle": 2000,
-    "timeout": 30000,
+    "timeout": 300,
     "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
     "url": "http://127.0.0.1:4723/wd/hub",
     "host": "127.0.0.1",

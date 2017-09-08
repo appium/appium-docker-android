@@ -26,6 +26,10 @@ if [ -z "$BROWSER_NAME" ]; then
   BROWSER_NAME="android"
 fi
 
+if [ -z "$NODE_TIMEOUT" ]; then
+  NODE_TIMEOUT=300
+fi
+
 if [ ! -z "$REMOTE_ADB" ]; then
     if [ ! -z "$ANDROID_DEVICES" ]; then
         IFS=',' read -r -a array <<< "$ANDROID_DEVICES"
@@ -73,7 +77,7 @@ nodeconfig=$(cat <<_EOF
   "capabilities": [$(create_capabilities)],
   "configuration": {
     "cleanUpCycle": 2000,
-    "timeout": 30000,
+    "timeout": $NODE_TIMEOUT,
     "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
     "url": "http://$APPIUM_HOST:$APPIUM_PORT/wd/hub",
     "host": "$APPIUM_HOST",
