@@ -18,6 +18,8 @@ WORKDIR /root
 #   SSL client
 # tzdata
 #   Timezone
+# zip
+#   Make a zip file
 # unzip
 #   Unzip zip file
 # curl
@@ -36,6 +38,7 @@ RUN apt-get -qqy update && \
     openjdk-8-jdk \
     ca-certificates \
     tzdata \
+    zip \
     unzip \
     curl \
     wget \
@@ -55,6 +58,8 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 #=====================
 ARG SDK_VERSION=sdk-tools-linux-3859397
 ARG ANDROID_BUILD_TOOLS_VERSION=26.0.0
+ARG ANDROID_PLATFORM_VERSION="android-25"
+
 ENV SDK_VERSION=$SDK_VERSION \
     ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
     ANDROID_HOME=/root
@@ -63,14 +68,16 @@ RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zi
     unzip tools.zip && rm tools.zip && \
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME
+
 ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
 
 # https://askubuntu.com/questions/885658/android-sdk-repositories-cfg-could-not-be-loaded
-RUN mkdir -p ~/.android
-RUN touch ~/.android/repositories.cfg
+RUN mkdir -p ~/.android && \
+    touch ~/.android/repositories.cfg && \
+    echo y | sdkmanager "platform-tools" && \
+    echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" && \
+    echo y | sdkmanager "platforms;$ANDROID_PLATFORM_VERSION"
 
-RUN echo y | sdkmanager "platform-tools"
-RUN echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 
 #====================================
@@ -109,8 +116,8 @@ COPY \
   Appium/entry_point.sh \
   Appium/generate_config.sh \
     /root/
-RUN chmod +x /root/entry_point.sh
-RUN chmod +x /root/generate_config.sh
+RUN chmod +x /root/entry_point.sh && \
+    chmod +x /root/generate_config.sh
 
 #========================================
 # Run xvfb and appium server

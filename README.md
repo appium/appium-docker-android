@@ -100,7 +100,7 @@ For example:
 $ docker run --privileged -d -p 4723:4723 -v ~/.android:/root/.android -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 ``` 
 
-### Connect to Android devices by Air
+## Connect to Android devices by Air
 
 Appium-Docker-Android can be connected with Android devices by Air.
 
