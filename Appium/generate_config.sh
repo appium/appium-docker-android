@@ -53,6 +53,7 @@ function create_capabilities() {
   capabilities=""
   for name in ${devices[@]}; do
     os_version="$(adb -s $name shell getprop ro.build.version.release | tr -d '\r')"
+    serial_number="$(adb -s $name shell getprop ro.serialno | tr -d '\r')"
     capabilities+=$(cat <<_EOF
 {
     "platform": "$PLATFORM_NAME",
@@ -60,7 +61,8 @@ function create_capabilities() {
     "version": "$os_version",
     "browserName": "$BROWSER_NAME",
     "deviceName": "$name",
-    "maxInstances": 1
+    "maxInstances": 1,
+    "applicationName": "$serial_number"
   }
 _EOF
     )

@@ -10,14 +10,16 @@ default_node_config=\
     "version": "7.1.1",
     "browserName": "android",
     "deviceName": "73QDU16916010699",
-    "maxInstances": 1
+    "maxInstances": 1,
+    "applicationName": "73QDU16916010699"
   }, {
     "platform": "Android",
     "platformName": "Android",
     "version": "5.1.1",
     "browserName": "android",
     "deviceName": "4b13354b80b36200",
-    "maxInstances": 1
+    "maxInstances": 1,
+    "applicationName": "4b13354b80b36200"
   }],
   "configuration": {
     "cleanUpCycle": 2000,
@@ -38,9 +40,11 @@ adb_devices_output='73QDU16916010699 device 4b13354b80b36200 device'
 
 @test 'Verify selenium grid config is created' {
   stub adb \
-  "devices : echo $adb_devices_output" \
-  "-s 73QDU16916010699 shell getprop ro.build.version.release : echo 7.1.1" \
-  "-s 4b13354b80b36200 shell getprop ro.build.version.release : echo 5.1.1"
+    "devices : echo $adb_devices_output" \
+    "-s 73QDU16916010699 shell getprop ro.build.version.release : echo 7.1.1" \
+    "-s 73QDU16916010699 shell getprop ro.serialno : echo 73QDU16916010699" \
+    "-s 4b13354b80b36200 shell getprop ro.build.version.release : echo 5.1.1" \
+    "-s 4b13354b80b36200 shell getprop ro.serialno : echo 4b13354b80b36200"
 
   run /root/generate_config.sh $node_config_json
   [ "$(cat $node_config_json)" == "$default_node_config" ]
