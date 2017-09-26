@@ -47,7 +47,6 @@ adb_devices_output='73QDU16916010699 device 4b13354b80b36200 device'
     "-s 4b13354b80b36200 shell getprop ro.serialno : echo 4b13354b80b36200"
 
   run /root/generate_config.sh $node_config_json
-  echo $node_config_json
   [ "$(cat $node_config_json)" == "$default_node_config" ]
 
   unstub adb
