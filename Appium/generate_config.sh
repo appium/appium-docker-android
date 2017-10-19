@@ -30,20 +30,6 @@ if [ -z "$NODE_TIMEOUT" ]; then
   NODE_TIMEOUT=300
 fi
 
-if [ ! -z "$REMOTE_ADB" ]; then
-    if [ ! -z "$ANDROID_DEVICES" ]; then
-        IFS=',' read -r -a array <<< "$ANDROID_DEVICES"
-        for i in "${!array[@]}"
-        do
-            echo "Connecting to: ${array[$i]}"
-            adb connect ${array[$i]}
-            echo "Success!"
-        done
-        #Give time to finish connection
-        sleep 1
-    fi
-fi
-
 #Get device names
 devices=($(adb devices | grep -oP "\K([^ ]+)(?=\sdevice(\W|$))"))
 echo "Devices found: ${#devices[@]}"
