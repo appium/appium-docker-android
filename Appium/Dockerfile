@@ -115,9 +115,11 @@ EXPOSE 4723
 COPY \
   Appium/entry_point.sh \
   Appium/generate_config.sh \
+  Appium/wireless_connect.sh \
     /root/
 RUN chmod +x /root/entry_point.sh && \
-    chmod +x /root/generate_config.sh
+    chmod +x /root/generate_config.sh && \
+    chmod +x /root/wireless_connect.sh
 
 #========================================
 # Run xvfb and appium server
