@@ -116,12 +116,14 @@ COPY \
   Appium/entry_point.sh \
   Appium/generate_config.sh \
   Appium/wireless_connect.sh \
+  Appium/wireless_autoconnect.sh \
     /root/
 RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
-    chmod +x /root/wireless_connect.sh
+    chmod +x /root/wireless_connect.sh && \
+    chmod +x /root/wireless_autoconnect.sh
 
 #========================================
 # Run xvfb and appium server
 #========================================
-CMD ["/root/entry_point.sh"]
+CMD /root/wireless_autoconnect.sh && /root/entry_point.sh
