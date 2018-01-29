@@ -132,7 +132,7 @@ $ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=True -e APPIUM_HOST
 ```
 
 ### Docker compose
-There is [an example of compose file](docker-compose.yml) to simulate the connection between selenium hub and appium server mit connected device(s) in docker solution.
+There is [an example of compose file](docker-compose.yml) to simulate the connection between selenium hub and appium server with connected device(s) in docker solution.
 
 ```
 $ docker-compose up -d
