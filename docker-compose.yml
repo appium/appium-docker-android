@@ -10,8 +10,8 @@ services:
     ports:
       - 4444:4444
 
-  # Appium Docker Android
-  appium_devices:
+  # Appium Docker Android  
+  appium_android_device:
     image: appium/appium
     depends_on:
       - selenium_hub
@@ -23,3 +23,5 @@ services:
     environment:
       - CONNECT_TO_GRID=True
       - SELENIUM_HOST=selenium_hub
+      # Enable it for msite testing
+      #- BROWSER_NAME=chrome
