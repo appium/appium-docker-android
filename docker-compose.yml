@@ -19,6 +19,7 @@ services:
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
+      - ~/.android:/root/.android
     environment:
       - CONNECT_TO_GRID=True
       - SELENIUM_HOST=selenium_hub
