@@ -7,7 +7,7 @@ if [ -z "$PLATFORM_NAME" ]; then
 fi
 
 if [ -z "$APPIUM_HOST" ]; then
-  APPIUM_HOST="127.0.0.1"
+  APPIUM_HOST=$(hostname -i)
 fi
 
 if [ -z "$APPIUM_PORT" ]; then
