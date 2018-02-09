@@ -15,7 +15,6 @@ services:
     image: appium/appium
     depends_on:
       - selenium_hub
-    network_mode: "service:selenium_hub"
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
