@@ -76,14 +76,15 @@ RUN mkdir -p ~/.android && \
     touch ~/.android/repositories.cfg && \
     echo y | sdkmanager "platform-tools" && \
     echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" && \
-    echo y | sdkmanager "platforms;$ANDROID_PLATFORM_VERSION"
+    echo y | sdkmanager "platforms;$ANDROID_PLATFORM_VERSION" && \
+    echo y | sdkmanager --update
 
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 
 #====================================
 # Install latest nodejs, npm, appium
 #====================================
-ARG APPIUM_VERSION=1.7.0-beta
+ARG APPIUM_VERSION=1.7.2
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
