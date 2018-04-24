@@ -52,13 +52,17 @@
 	$ docker-machine ssh appium-test-machine
 	```
 
-7. Run the docker image
+7. Remove your base machine's ownership over the Android device(s)
+
+  ```
+  adb kill-server
+  ```
+
+8. Run the docker image
 
 	```
 	$ docker run --privileged -d -p 4723:4723  -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 	```
-
-8. Plug in devices after container is running; otherwise it will shows nothing.
 
 9. Run following command to verify adb devices can detect the connected android device.
 
@@ -82,6 +86,7 @@
 	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
 	}
 	```
+
 ### Share Android identification key
 
 Each time, you will (re)create container, connected to container devices will ask for authorization after first
@@ -98,6 +103,15 @@ Each time, you will (re)create container, connected to container devices will as
 For example:
 ```
 $ docker run --privileged -d -p 4723:4723 -v ~/.android:/root/.android -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
+```
+
+## Connect Each Device to a Separate Container
+
+In certain use cases you may want to have a single Appium-Docker-Android container running for each device. To achieve this you must run `adb kill-server` and then provide the `--device` option to `docker run`:
+
+```
+$ docker run -d -p 4723:4723 --device /dev/bus/usb/XXX/YYY:/dev/bus/usb/XXX/YYY -v ~/.android:/root/.android --name device1 appium/appium
+$ docker run -d -p 4724:4723 --device /dev/bus/usb/XXX/ZZZ:/dev/bus/usb/XXX/ZZZ -v ~/.android:/root/.android --name device2 appium/appium
 ```
 
 ## Connect to Android devices by Air
@@ -139,6 +153,7 @@ The image generates the node config file, if you would like to provide your own 
 - -v \<path\_to\_config>:/root/nodeconfig.json
 
 ### Docker compose
+
 There is [an example of compose file](docker-compose.yml) to simulate the connection between selenium hub and appium server with connected device(s) in docker solution.
 
 ```
