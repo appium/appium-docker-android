@@ -1,7 +1,8 @@
 #!/bin/bash
 
 NODE_CONFIG_JSON="/root/nodeconfig.json"
-CMD="xvfb-run appium"
+APPIUM_LOG="/var/log/appium.log"
+CMD="xvfb-run appium --log $APPIUM_LOG"
 
 function generate_node_config() {
   if [ -z "$CUSTOM_NODE_CONFIG" ]; then
