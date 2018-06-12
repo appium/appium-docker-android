@@ -11,6 +11,16 @@
 - appium/appium - Docker Image to run appium tests on real android devices.
 - To execute in android emulator's please visit [docker-android](https://github.com/butomo1989/docker-appium.git)
 
+### How to Build:
+
+	$ docker build -t "appium/appium:local" -f Appium/Dockerfile Appium
+
+The following `--build-arg`s are available:
+- ANDROID_BUILD_TOOLS_VERSION
+- ANDROID_PLATFORM_VERSION
+- APPIUM_VERSION
+- SDK_VERSION
+
 ## Setting up Android real device test on Docker macOSX
 
 1. Why is this approach needed at first place?
@@ -44,7 +54,7 @@
 
 5. Open Virtual box, move to appium-test-machine created, select USB and add Android device and Host Controller.
 
-	![alt tag](Appium/virtualbox.png)
+	![alt tag](images/virtualbox.png)
 
 6. SSH into the docker machine created
 
@@ -54,9 +64,9 @@
 
 7. Remove your base machine's ownership over the Android device(s)
 
-  ```
-  adb kill-server
-  ```
+	```
+	adb kill-server
+	```
 
 8. Run the docker image
 
@@ -96,7 +106,7 @@ Each time, you will (re)create container, connected to container devices will as
 - Run `adb devices`
 - Authorize all devices (do not forget to check **Always allow this computer**)
 
-![Always allow this computer screenshot](Appium/authorization.png)
+![Always allow this computer screenshot](images/authorization.png)
 
 - run your containers with parameter `-v ~/.android:/root/.android`
 
@@ -154,7 +164,7 @@ The image generates the node config file, if you would like to provide your own 
 
 ### Docker compose
 
-There is [an example of compose file](docker-compose.yml) to simulate the connection between selenium hub and appium server with connected device(s) in docker solution.
+There is [an example of compose file](examples/docker-compose.yml) to simulate the connection between selenium hub and appium server with connected device(s) in docker solution.
 
 ```
 $ docker-compose up -d

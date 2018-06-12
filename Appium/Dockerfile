@@ -112,12 +112,12 @@ EXPOSE 4723
 #====================================================
 # Scripts to run appium and connect to Selenium Grid
 #====================================================
-COPY \
-  Appium/entry_point.sh \
-  Appium/generate_config.sh \
-  Appium/wireless_connect.sh \
-  Appium/wireless_autoconnect.sh \
-    /root/
+COPY entry_point.sh \
+     generate_config.sh \
+     wireless_connect.sh \
+     wireless_autoconnect.sh \
+     /root/
+
 RUN chmod +x /root/entry_point.sh && \
     chmod +x /root/generate_config.sh && \
     chmod +x /root/wireless_connect.sh && \
