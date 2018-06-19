@@ -20,7 +20,7 @@ services:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/root/.android
     environment:
-      - CONNECT_TO_GRID=True
+      - CONNECT_TO_GRID=true
       - SELENIUM_HOST=selenium_hub
       # Enable it for msite testing
       #- BROWSER_NAME=chrome
