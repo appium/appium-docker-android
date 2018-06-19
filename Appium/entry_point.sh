@@ -15,6 +15,10 @@ if [ "$CONNECT_TO_GRID" = true ]; then
 	CMD+=" --nodeconfig $NODE_CONFIG_JSON"
 fi
 
+if [ "$RELAXED_SECURITY" = true ]; then
+	CMD+=" --relaxed-security"
+fi
+
 pkill -x xvfb-run
 
 $CMD

@@ -132,35 +132,39 @@ To do that you need to configure android device, according to [official manual](
 
 Then run docker container with following parameters:
 
-- REMOTE\_ADB=True
+- REMOTE\_ADB=true
 - ANDROID\_DEVICES=\<android\_device\_host\>:\<android\_device\_port\> \[,\<android\_device\_host\>:\<android\_device\_port\>\]
 - REMOTE_ADB_POLLING_SEC=60 (default: 5, interval between polling the list of connected devices in order to connect to lost remote devices)
 
 ```
-$ docker run -d -p 4723:4723 -e REMOTE_ADB=True -e ANDROID_DEVICES=192.168.0.5:5555,192.168.0.6:5555 -e REMOTE_ADB_POLLING_SEC=60
+$ docker run -d -p 4723:4723 -e REMOTE_ADB=true -e ANDROID_DEVICES=192.168.0.5:5555,192.168.0.6:5555 -e REMOTE_ADB_POLLING_SEC=60
 ```
 
 ## Connect to Selenium Grid
 
 Appium-Docker-Android can be connected with selenium grid by passing following parameters:
 
-- CONNECT\_TO\_GRID=True
+- CONNECT\_TO\_GRID=true
 - APPIUM\_HOST=\<ip\_address\_of\_appium\_server>
 - APPIUM\_PORT=\<port\_of\_appium\_server>
 - SELENIUM\_HOST=\<ip\_address\_of\_selenium\_hub>
 - SELENIUM\_PORT=\<port\_of\_selenium\_hub>
 
 ```
-$ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
+$ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 ```
 
 ### Custom Node Config
 
 The image generates the node config file, if you would like to provide your own config pass the following parameters:
 
-- CONNECT\_TO\_GRID=True
-- CUSTOM\_NODE\_CONFIG=True
+- CONNECT\_TO\_GRID=true
+- CUSTOM\_NODE\_CONFIG=true
 - -v \<path\_to\_config>:/root/nodeconfig.json
+
+### Relaxed Security
+
+Pass environment variable RELAXED_SECURITY=true to disable additional security check to use some advanced features.
 
 ### Docker compose
 
