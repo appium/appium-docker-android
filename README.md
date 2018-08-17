@@ -56,19 +56,19 @@ The following `--build-arg`s are available:
 
 	![alt tag](images/virtualbox.png)
 
-5. SSH into the docker machine created
-
-	```
-	$ docker-machine ssh appium-test-machine
-	```
-
-6. Remove your base machine's ownership over the Android device(s)
+5. Remove your base machine's ownership over the Android device(s)
 
 	```
 	adb kill-server
 	```
 
-7. Run the docker image
+6. SSH into the docker machine created
+
+	```
+	$ docker-machine ssh appium-test-machine
+	```
+
+7. Run the docker image on the newly created docker machine
 
 	```
 	$ docker run --privileged -d -p 4723:4723  -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
