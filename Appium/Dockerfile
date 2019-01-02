@@ -87,7 +87,8 @@ ARG APPIUM_VERSION=1.7.0-beta
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    apt-get -qqy install nodejs && \
+    apt-get -qqy install nodejs \
+    build-essential && \
     npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
