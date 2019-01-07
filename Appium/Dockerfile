@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
 
@@ -32,6 +32,8 @@ WORKDIR /root
 #   Required package for chrome and chromedriver to run on Linux
 # xvfb
 #   X virtual framebuffer
+# gnupg
+#   Encryption software. It is needed for nodejs
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
@@ -45,6 +47,7 @@ RUN apt-get -qqy update && \
     libqt5webkit5 \
     libgconf-2-4 \
     xvfb \
+    gnupg \
   && rm -rf /var/lib/apt/lists/*
 
 #===============
@@ -86,9 +89,10 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 ARG APPIUM_VERSION=1.7.0-beta
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && \
     apt-get -qqy install nodejs && \
-    npm install -g appium@${APPIUM_VERSION} && \
+    npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root && \
+    exit 0 && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
