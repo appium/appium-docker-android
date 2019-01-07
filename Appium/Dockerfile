@@ -85,6 +85,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 
 #====================================
 # Install latest nodejs, npm, appium
+# Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
 ARG APPIUM_VERSION=1.7.0-beta
 ENV APPIUM_VERSION=$APPIUM_VERSION
