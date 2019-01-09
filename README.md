@@ -11,7 +11,7 @@
 - appium/appium - Docker Image to run appium tests on real android devices.
 - To execute in android emulator's please visit [docker-android](https://github.com/butomo1989/docker-appium.git)
 
-## Setting up Android real device test on Docker macOSX
+## Setting up Android real device test on Docker macOSX with Docker-machine
 
 1. Why is this approach needed at first place?
 
@@ -86,6 +86,32 @@
 	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
 	}
 	```
+	
+## Communicate with Android connected to host
+1. Create a docker container with this command 
+
+	```
+	$ docker run --privileged -d -p 6080:6080 -p 5554:5554 -p 5555:5555 -p 4723:4723 --name android-container-appium butomo1989/docker-android-real-device
+	```
+	
+2. Open noVNC [http://localhost:6080](http://localhost:6080)
+
+3. Open terminal by clicking right on **noVNC** window >> **Terminal emulator**
+
+4. To connect to host's adb (make sure your host have adb and connected to the device.) 
+
+	```
+	$ adb -H host.docker.internal devices
+	```
+	
+	To specify port, just add `-P port_number`
+
+	```
+	$ adb -H host.docker.internal -P 5037 devices
+	```
+	
+5. Now your container can access your host devices. But, you need to add `remoteAdbHost` and `adbPort` desired capabilities to make **Appium** can recognise those devices.  
+
 
 ### Share Android identification key
 
