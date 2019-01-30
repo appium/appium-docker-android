@@ -15,7 +15,7 @@
 ### Images Included:
 
 - appium/appium - Docker Image to run appium tests on real Android devices.
-- To execute in Android emulator's please visit [docker-android](https://github.com/butomo1989/docker-appium.git)
+- To execute in Android emulator's please visit [docker-android](https://github.com/budtmo/docker-android)
 
 ### How to Build:
 
