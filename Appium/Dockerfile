@@ -34,6 +34,8 @@ WORKDIR /root
 #   X virtual framebuffer
 # gnupg
 #   Encryption software. It is needed for nodejs
+# salt-minion
+#   Infrastructure management (client-side)
 #==================
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
@@ -48,6 +50,7 @@ RUN apt-get -qqy update && \
     libgconf-2-4 \
     xvfb \
     gnupg \
+    salt-minion \
   && rm -rf /var/lib/apt/lists/*
 
 #===============

@@ -166,6 +166,10 @@ The image generates the node config file, if you would like to provide your own 
 
 Pass environment variable RELAXED_SECURITY=true to disable additional security check to use some advanced features.
 
+### Enable SaltStack
+
+You can enable [SaltStack](https://github.com/saltstack/salt) to control running containers by passing environment variable SALT_MASTER=<ip_address_of_salt_master>.
+
 ### Docker compose
 
 There is [an example of compose file](examples/docker-compose.yml) to simulate the connection between selenium hub and appium server with connected device(s) in docker solution.
