@@ -27,5 +27,6 @@ if [ "$RELAXED_SECURITY" = true ]; then
 fi
 
 pkill -x xvfb-run
+rm -rf /tmp/.X99-lock
 
 $CMD
