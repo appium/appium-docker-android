@@ -103,6 +103,13 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
 
+#================================
+# APPIUM Test Distribution (ATD)
+#================================
+ARG ATD_VERSION=1.2
+ENV ATD_VERSION=$ATD_VERSION
+RUN wget -nv -O RemoteAppiumManager.jar "https://github.com/AppiumTestDistribution/ATD-Remote/releases/download/${ATD_VERSION}/RemoteAppiumManager-${ATD_VERSION}.jar"
+
 #==================================
 # Fix Issue with timezone mismatch
 #==================================
@@ -114,8 +121,11 @@ RUN echo "${TZ}" > /etc/timezone
 #---------------
 # 4723
 #   Appium port
+# 4567
+#   ATD port
 #===============
 EXPOSE 4723
+EXPOSE 4567
 
 #====================================================
 # Scripts to run appium and connect to Selenium Grid

@@ -12,6 +12,12 @@ if [ ! -z "${SALT_MASTER}" ]; then
     echo "[INIT] salt-minion is running..."
 fi
 
+if [ "$ATD" = true ]; then
+    echo "[INIT] Starting ATD..."
+    java -jar /root/RemoteAppiumManager.jar -DPort=4567 &
+    echo "[INIT] ATD is running..."
+fi
+
 if [ "$REMOTE_ADB" = true ]; then
     /root/wireless_connect.sh
 fi
