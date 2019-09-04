@@ -28,6 +28,14 @@ The following `--build-arg`s are available:
 - SDK_VERSION
 
 ## Setting up Android real device test on Docker macOSX
+There are following ways to connecting to a real device
+1. [Mount the USB devices connected to Docker host machine](#mount-the-usb-devices-connected-to-docker-host-machine)
+2. [Connect Each Device to a Separate Container](#connect-each-device-to-a-separate-container)
+3. [Connect to Android devices by Air](#connect-to-android-devices-by-air)
+4. [Connect to an ADB server](#connect-to-an-adb-server)
+5. [Connect to Selenium Grid](#connect-to-selenium-grid)
+
+## Mount the USB devices connected to Docker host machine
 
 1. Make sure you have latest docker installed on mac.
 
@@ -139,6 +147,45 @@ Then run docker container with following parameters:
 ```
 $ docker run -d -p 4723:4723 -e REMOTE_ADB=true -e ANDROID_DEVICES=192.168.0.5:5555,192.168.0.6:5555 -e REMOTE_ADB_POLLING_SEC=60
 ```
+
+## Connect to an ADB server
+
+1. Make sure you have latest docker installed on mac.
+
+	```
+	$ docker-machine --version
+	$ docker-machine version 0.10.0, build 76ed2a6
+	```
+
+2. Setup ADB on the machine where you wish to connect the devices. This machine could be anywhere as long as they are accessible from your organization's internal network or internet. E.g. A Raspberry Pi having a real device connected or an AWS machine acting as an emulator farm.
+
+2. Start the ADB in server with the following command on the machine where the real device is connected
+    ```
+    $ adb kill-server # to make sure there is only one adb server running
+    $ adb -a -P <any_available_port> nodaemon server >/tmp/adb_server_log 2>&1 &
+
+    # If you want to start the server at default port remove the -P and port number
+    # and the server will start at port 5037
+    ```
+
+3. Get the IP of the machine and make sure that it's accessible over the network.
+    
+    ```
+    $ ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}'
+    ```
+
+4. Start the appium docker container with the following command
+
+    ```
+    $ docker run -p 4723:4723 -e "ADB_SERVER_SOCKET=tcp:<device_host_ip>:<adb_server_port>" --name container-appium appium/appium
+
+    # e.g. $ docker run -d -p 4723:4723 -e "ADB_SERVER_SOCKET=tcp:<host_ip>:5037" --name container-appium appium/appium
+    ```
+
+ 5. You should be able to see all connected Android real device and emulators when you run following command
+    ```
+    $ docker exec -it container-appium adb devices
+    ```
 
 ## Connect to Selenium Grid
 
