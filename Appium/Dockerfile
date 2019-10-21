@@ -79,12 +79,12 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 ARG APPIUM_VERSION=1.15.1
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
-#ARG CHROMEDRIVER_VERSION=77.0.3865.40
-#ENV CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION
+ARG CHROMEDRIVER_VERSION=77.0.3865.40
+ENV CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get -qqy install nodejs && \
-    npm install -g appium@${APPIUM_VERSION} --no-shrinkwrap  && \
+    npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root --no-shrinkwrap  && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
