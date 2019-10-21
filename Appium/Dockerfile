@@ -76,10 +76,13 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 #====================================
 # Install latest nodejs, npm, appium
 #====================================
-ARG APPIUM_VERSION=1.6.6-beta
+ARG APPIUM_VERSION=1.15.1
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
+ARG CHROMEDRIVER_VERSION=77.0.3865.40
+ENV CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION=
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} --no-shrinkwrap  && \
     npm cache clean && \
