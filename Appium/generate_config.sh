@@ -26,6 +26,10 @@ if [ -z "$BROWSER_NAME" ]; then
   BROWSER_NAME="android"
 fi
 
+if [ -z "$DEVICE_UNIQUE_ID" ]; then
+  DEVICE_UNIQUE_ID=""
+fi
+
 if [ ! -z "$REMOTE_ADB" ]; then
     if [ ! -z "$ANDROID_DEVICES" ]; then
         IFS=',' read -r -a array <<< "$ANDROID_DEVICES"
@@ -57,6 +61,14 @@ function create_capabilities() {
     "browserName": "$BROWSER_NAME",
     "deviceName": "$name",
     "maxInstances": 1
+  },
+  {
+    "platform": "$PLATFORM_NAME",
+    "platformName": "$PLATFORM_NAME",
+    "version": "$os_version",
+    "browserName": "android",
+    "deviceName": "$name",
+    "maxInstances": 1
   }
 _EOF
     )
@@ -72,17 +84,21 @@ nodeconfig=$(cat <<_EOF
 {
   "capabilities": [$(create_capabilities)],
   "configuration": {
-    "cleanUpCycle": 2000,
-    "timeout": 30000,
+    "deviceUniqueId": "$DEVICE_UNIQUE_ID",
+    "cleanUpCycle": 5000,
+    "timeout": 19000,
     "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
     "url": "http://$APPIUM_HOST:$APPIUM_PORT/wd/hub",
     "host": "$APPIUM_HOST",
     "port": $APPIUM_PORT,
-    "maxSession": 6,
+    "maxSession": 1,
     "register": true,
-    "registerCycle": 5000,
+    "registerCycle": 64000,
     "hubHost": "$SELENIUM_HOST",
-    "hubPort": $SELENIUM_PORT
+    "hubPort": $SELENIUM_PORT,
+    "nodePolling": 93000,
+    "nodeStatusCheckTimeout": 5000,
+    "unregisterIfStillDownAfter": 2500
   }
 }
 _EOF
