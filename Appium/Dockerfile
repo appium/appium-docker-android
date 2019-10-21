@@ -85,7 +85,7 @@ ENV CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root --no-shrinkwrap  && \
-    npm cache clean && \
+    npm cache clean --force && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
