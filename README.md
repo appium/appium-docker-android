@@ -11,6 +11,10 @@
 - appium/appium - Docker Image to run appium tests on real android devices.
 - To execute in android emulator's please visit [docker-android](https://github.com/butomo1989/docker-appium.git)
 
+## Build locally
+```
+docker build -t "pvhqa/appium-chrome:1.15.1-77.0.3865.40" --no-cache --build-arg SDK_VERSION=sdk-tools-linux-4333796 --build-arg ANDROID_BUILD_TOOLS_VERSION=29.0.2 --build-arg APPIUM_VERSION=1.15.1 --build-arg CHROMEDRIVER_VERSION=77.0.3865.40 -f Appium/Dockerfile .```
+
 ## Setting up Android real device test on Docker macOSX
 
 1. Why is this approach needed at first place?
@@ -109,7 +113,6 @@ Appium-Docker-Android can be connected with selenium grid by passing following p
 - SELENIUM\_HOST=\<ip\_address\_of\_selenium\_hub>
 - SELENIUM\_PORT=\<port\_of\_selenium\_hub>
 - DEVICE\_UNIQUE\_ID=\<deivce\_unique\_id>
-- CHROMEDRIVER_VERSION=\<version>
 ```
 $ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=True -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name container-appium appium/appium
 ```

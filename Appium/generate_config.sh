@@ -93,7 +93,7 @@ nodeconfig=$(cat <<_EOF
     "port": $APPIUM_PORT,
     "maxSession": 1,
     "register": true,
-    "registerCycle": 64000,
+    "registerCycle": 5000,
     "hubHost": "$SELENIUM_HOST",
     "hubPort": $SELENIUM_PORT,
     "nodePolling": 93000,
