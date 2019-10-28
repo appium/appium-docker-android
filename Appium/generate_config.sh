@@ -100,7 +100,7 @@ nodeconfig=$(cat <<_EOF
     "nodePolling": 93000,
     "nodeStatusCheckTimeout": 5000,
     "unregisterIfStillDownAfter": 2500
-  }:
+  }
 }
 _EOF
 )
