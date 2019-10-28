@@ -22,10 +22,6 @@ if [ -z "$SELENIUM_PORT" ]; then
   SELENIUM_PORT=4444
 fi
 
-if [ -z "$BROWSER_NAME" ]; then
-  BROWSER_NAME="android"
-fi
-
 if [ -z "$DEVICE_UNIQUE_ID" ]; then
   DEVICE_UNIQUE_ID=""
 fi
@@ -53,13 +49,14 @@ function create_capabilities() {
   capabilities=""
   for name in ${devices[@]}; do
     os_version="$(adb -s $name shell getprop ro.build.version.release | tr -d '\r')"
+    chrome_version="$(adb -s $name shell dumpsys package com.android.chrome | grep versionName -m1 | tr -d "versionName=" | sed -r 's/\s+//g')"
     capabilities+=$(cat <<_EOF
 {
     "deviceUniqueId": "$DEVICE_UNIQUE_ID",
     "platform": "$PLATFORM_NAME",
     "platformName": "$PLATFORM_NAME",
-    "version": "$os_version",
-    "browserName": "$BROWSER_NAME",
+    "version": "$chrome_version",
+    "browserName": "chrome",
     "deviceName": "$name",
     "maxInstances": 1
   },
