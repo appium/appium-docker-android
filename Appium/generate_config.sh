@@ -55,6 +55,7 @@ function create_capabilities() {
     os_version="$(adb -s $name shell getprop ro.build.version.release | tr -d '\r')"
     capabilities+=$(cat <<_EOF
 {
+    "deviceUniqueId": "$DEVICE_UNIQUE_ID",
     "platform": "$PLATFORM_NAME",
     "platformName": "$PLATFORM_NAME",
     "version": "$os_version",
@@ -63,6 +64,7 @@ function create_capabilities() {
     "maxInstances": 1
   },
   {
+    "deviceUniqueId": "$DEVICE_UNIQUE_ID",
     "platform": "$PLATFORM_NAME",
     "platformName": "$PLATFORM_NAME",
     "version": "$os_version",
@@ -84,10 +86,9 @@ nodeconfig=$(cat <<_EOF
 {
   "capabilities": [$(create_capabilities)],
   "configuration": {
-    "deviceUniqueId": "$DEVICE_UNIQUE_ID",
     "cleanUpCycle": 5000,
     "timeout": 19000,
-    "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+    "proxy": "com.pvh.proxy.NoAppiumRemoteProxy",
     "url": "http://$APPIUM_HOST:$APPIUM_PORT/wd/hub",
     "host": "$APPIUM_HOST",
     "port": $APPIUM_PORT,
@@ -99,7 +100,7 @@ nodeconfig=$(cat <<_EOF
     "nodePolling": 93000,
     "nodeStatusCheckTimeout": 5000,
     "unregisterIfStillDownAfter": 2500
-  }
+  }:
 }
 _EOF
 )
