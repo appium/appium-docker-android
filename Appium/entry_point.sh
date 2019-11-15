@@ -5,6 +5,9 @@ DEFAULT_CAPABILITIES_JSON="/root/defaultcapabilities.json"
 APPIUM_LOG="/var/log/appium.log"
 CMD="xvfb-run appium --log $APPIUM_LOG"
 
+if [ ! -z "$USB_BUS" ]; then
+    /root/usbreset $USB_BUS
+fi  
 
 if [ "$CONNECT_TO_GRID" = true ]; then
     if [ "$CUSTOM_NODE_CONFIG" != true ]; then

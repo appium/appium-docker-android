@@ -4,6 +4,12 @@
 [![star this repo](http://githubbadges.com/star.svg?user=appium&repo=appium-docker-android&style=default)](https://github.com/appium/appium-docker-android)
 [![fork this repo](http://githubbadges.com/fork.svg?user=appium&repo=appium-docker-android&style=default)](https://github.com/appium/appium-docker-android/fork)
 
+# Usb Reset
+```
+cc usbreset.c -o usbreset
+```
+
+
 # Appium Docker for Android
 
 ### Images Included:

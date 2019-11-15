@@ -111,9 +111,11 @@ EXPOSE 4723
 COPY \
   Appium/entry_point.sh \
   Appium/generate_config.sh \
+  Appium/usbreset \
     /root/
 RUN chmod +x /root/entry_point.sh
 RUN chmod +x /root/generate_config.sh
+RUN chmod +x /root/usbreset
 
 #========================================
 # Run xvfb and appium server
