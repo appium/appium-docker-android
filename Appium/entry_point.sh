@@ -37,6 +37,10 @@ if [ "$RELAXED_SECURITY" = true ]; then
     CMD+=" --relaxed-security"
 fi
 
+if [ "$CHROMEDRIVER_AUTODOWNLOAD" = true ]; then
+    CMD+=" chromedriver_autodownload"
+fi
+
 pkill -x xvfb-run
 rm -rf /tmp/.X99-lock
 
