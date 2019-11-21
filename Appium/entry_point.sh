@@ -38,7 +38,7 @@ if [ "$RELAXED_SECURITY" = true ]; then
 fi
 
 if [ "$CHROMEDRIVER_AUTODOWNLOAD" = true ]; then
-    CMD+=" chromedriver_autodownload"
+    CMD+=" --allow-insecure chromedriver_autodownload"
 fi
 
 pkill -x xvfb-run
