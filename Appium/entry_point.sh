@@ -6,7 +6,19 @@ APPIUM_LOG="/var/log/appium.log"
 CMD="xvfb-run appium --log $APPIUM_LOG"
 
 if [ ! -z "$USB_BUS" ]; then
-    /root/usbreset $USB_BUS
+    try="0"
+    while [ $try -lt 3 ]; do
+        /root/usbreset $USB_BUS
+        devices=($(adb devices | grep -oP "\K([^ ]+)(?=\sdevice(\W|$))"))
+        count=${#devices[@]}
+        if (( $count < 1 )); then
+             echo "Try to reset usb: $try"
+             sleep 1
+             try=$[$try+1]
+        else
+             break;
+        fi
+    done
 fi  
 
 if [ "$CONNECT_TO_GRID" = true ]; then

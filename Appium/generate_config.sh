@@ -52,7 +52,6 @@ function create_capabilities() {
     chrome_version="$(adb -s $name shell dumpsys package com.android.chrome | grep versionName -m1 | tr -d "versionName=" | sed -r 's/\s+//g')"
     capabilities+=$(cat <<_EOF
 {
-    "deviceUniqueId": "$DEVICE_UNIQUE_ID",
     "platform": "$PLATFORM_NAME",
     "platformName": "$PLATFORM_NAME",
     "version": "$chrome_version",
@@ -61,7 +60,6 @@ function create_capabilities() {
     "maxInstances": 1
   },
   {
-    "deviceUniqueId": "$DEVICE_UNIQUE_ID",
     "platform": "$PLATFORM_NAME",
     "platformName": "$PLATFORM_NAME",
     "version": "$os_version",
@@ -95,6 +93,9 @@ nodeconfig=$(cat <<_EOF
     "hubHost": "$SELENIUM_HOST",
     "hubPort": $SELENIUM_PORT,
     "nodePolling": 93000,
+    "custom": {
+       "deviceUniqueId": "$DEVICE_UNIQUE_ID"
+    },
     "nodeStatusCheckTimeout": 5000,
     "unregisterIfStillDownAfter": 2500
   }
