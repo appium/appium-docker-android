@@ -41,6 +41,10 @@ if [ "$CHROMEDRIVER_AUTODOWNLOAD" = true ]; then
     CMD+=" --allow-insecure chromedriver_autodownload"
 fi
 
+if [ "$ADB_SHELL" = true ]; then
+    CMD+=" --allow-insecure adb_shell"
+fi
+
 pkill -x xvfb-run
 rm -rf /tmp/.X99-lock
 
