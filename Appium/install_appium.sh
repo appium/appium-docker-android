@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CMD="npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root --no-shrinkwrap && npm cache clean --force"
+CMD="npm install -g appium@$APPIUM_VERSION --unsafe-perm=true --allow-root --no-shrinkwrap"
 
 chrome_version="$(adb shell dumpsys package com.android.chrome | grep versionName -m1 | cut -f 2 -d '=')"
 
