@@ -19,7 +19,9 @@ if [ ! -z "$USB_BUS" ]; then
              break;
         fi
     done
-fi  
+fi
+
+/root/install_appium.sh
 
 if [ "$CONNECT_TO_GRID" = true ]; then
     if [ "$CUSTOM_NODE_CONFIG" != true ]; then

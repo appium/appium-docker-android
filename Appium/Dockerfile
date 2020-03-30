@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
+LABEL maintainer "Robin <xuanzhaopeng@gmail.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -70,6 +70,7 @@ RUN mkdir -p ~/.android
 RUN touch ~/.android/repositories.cfg
 
 RUN echo y | sdkmanager "platform-tools"
+RUN echo y | sdkmanager "platforms;android-28"
 RUN echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 
@@ -84,8 +85,6 @@ ENV CHROMEDRIVER_VERSION=$CHROMEDRIVER_VERSION
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
     apt-get -qqy install nodejs && \
-    npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root --no-shrinkwrap  && \
-    npm cache clean --force && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
@@ -111,6 +110,7 @@ EXPOSE 4723
 COPY \
   Appium/entry_point.sh \
   Appium/generate_config.sh \
+  Appium/install_appium.sh \
   Appium/usbreset \
     /root/
 RUN chmod +x /root/entry_point.sh
