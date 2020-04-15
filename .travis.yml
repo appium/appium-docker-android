@@ -9,7 +9,7 @@ before_install:
   - docker -v
 
 script:
-  - docker build -t "appium/appium:latest" --build-arg SDK_VERSION=$SDK_VERSION --build-arg ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION --build-arg APPIUM_VERSION=$APPIUM_VERSION --build-arg ATD_VERSION=$ATD_VERSION -f Appium/Dockerfile Appium
+  - docker build -t "appium/appium:latest" --build-arg BASE_IMAGE=$BASE_IMAGE --build-arg SDK_VERSION=$SDK_VERSION --build-arg ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION --build-arg APPIUM_VERSION=$APPIUM_VERSION --build-arg ATD_VERSION=$ATD_VERSION -f Appium/Dockerfile Appium
   - docker run --rm -v $PWD/Appium/tests:/root/tests "appium/appium:latest" bash tests/run-bats.sh
   - docker images
 
