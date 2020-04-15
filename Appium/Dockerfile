@@ -1,6 +1,6 @@
 ARG BASE_IMAGE=ubuntu:bionic-20200311
 FROM $BASE_IMAGE
-ENV BASE_IMAGE=$UBASE_IMAGE
+ENV BASE_IMAGE=$BASE_IMAGE
 
 LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
 
