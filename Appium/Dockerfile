@@ -1,4 +1,6 @@
-FROM ubuntu:18.04
+ARG BASE_IMAGE=ubuntu:bionic-20200311
+FROM $BASE_IMAGE
+ENV BASE_IMAGE=$UBASE_IMAGE
 
 LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
 
