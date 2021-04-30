@@ -2,7 +2,7 @@
 
 NODE_CONFIG_JSON="/root/nodeconfig.json"
 DEFAULT_CAPABILITIES_JSON="/root/defaultcapabilities.json"
-APPIUM_LOG="/var/log/appium.log"
+APPIUM_LOG="${APPIUM_LOG:-/var/log/appium.log}"
 CMD="xvfb-run appium --log $APPIUM_LOG"
 
 if [ ! -z "${SALT_MASTER}" ]; then
