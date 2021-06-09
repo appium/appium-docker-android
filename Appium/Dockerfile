@@ -1,6 +1,4 @@
-ARG BASE_IMAGE=ubuntu:bionic-20210512
-
-ENV BASE_IMAGE=$BASE_IMAGE
+FROM ubuntu:bionic-20200311
 
 ENV DEBIAN_FRONTEND=noninteractive
 
