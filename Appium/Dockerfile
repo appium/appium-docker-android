@@ -1,10 +1,13 @@
-ARG BASE_IMAGE=ubuntu:bionic-20200311
-FROM $BASE_IMAGE
+ARG BASE_IMAGE=ubuntu:bionic-20210512
+
 ENV BASE_IMAGE=$BASE_IMAGE
 
-LABEL maintainer "Srinivasan Sekar <srinivasan.sekar1990@gmail.com>"
-
 ENV DEBIAN_FRONTEND=noninteractive
+
+ENV SDK_VERSION=sdk-tools-linux-3859397 \
+    ANDROID_BUILD_TOOLS_VERSION=30.0.2 \
+    APPIUM_VERSION=1.21.0 \
+    ATD_VERSION=1.2
 
 #=============
 # Set WORKDIR
@@ -64,13 +67,8 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 #=====================
 # Install Android SDK
 #=====================
-ARG SDK_VERSION=sdk-tools-linux-3859397
-ARG ANDROID_BUILD_TOOLS_VERSION=26.0.0
 ARG ANDROID_PLATFORM_VERSION="android-25"
-
-ENV SDK_VERSION=$SDK_VERSION \
-    ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION \
-    ANDROID_HOME=/root
+ENV ANDROID_HOME=/root
 
 RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zip && \
     unzip tools.zip && rm tools.zip && \
@@ -92,9 +90,6 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Install latest nodejs, npm, appium
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
-ARG APPIUM_VERSION=1.7.0-beta
-ENV APPIUM_VERSION=$APPIUM_VERSION
-
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root && \
@@ -108,8 +103,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
 #================================
 # APPIUM Test Distribution (ATD)
 #================================
-ARG ATD_VERSION=1.2
-ENV ATD_VERSION=$ATD_VERSION
 RUN wget -nv -O RemoteAppiumManager.jar "https://github.com/AppiumTestDistribution/ATD-Remote/releases/download/${ATD_VERSION}/RemoteAppiumManager-${ATD_VERSION}.jar"
 
 #==================================
