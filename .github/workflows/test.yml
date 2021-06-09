@@ -1,0 +1,18 @@
+name: Build and Test
+
+on: [push, pull_request]
+
+jobs:
+  test_and_build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Build docker image
+        run: ./app.sh build test-container
+
+      - name: Test docker image
+        run: ./app.sh test test-container

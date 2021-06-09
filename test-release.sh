@@ -1,0 +1,11 @@
+#!/bin/bash
+
+BASE_IMAGE=ubuntu:bionic-20200311
+SDK_VERSION=sdk-tools-linux-3859397
+ANDROID_BUILD_TOOLS_VERSION=30.0.2
+#APPIUM_VERSION=1.20.2
+APPIUM_VERSION=1.21.0
+ATD_VERSION=1.2
+
+docker build -t "budtmo/appium:${APPIUM_VERSION}" --build-arg BASE_IMAGE="$BASE_IMAGE" --build-arg SDK_VERSION=$SDK_VERSION --build-arg ANDROID_BUILD_TOOLS_VERSION=$ANDROID_BUILD_TOOLS_VERSION --build-arg APPIUM_VERSION=$APPIUM_VERSION --build-arg ATD_VERSION=$ATD_VERSION -f Appium/Dockerfile Appium
+docker push "budtmo/appium:${APPIUM_VERSION}"
