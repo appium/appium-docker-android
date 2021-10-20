@@ -2,7 +2,7 @@ FROM ubuntu:bionic-20200311
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV SDK_VERSION=sdk-tools-linux-3859397 \
+ENV SDK_VERSION=commandlinetools-linux-7583922_latest \
     ANDROID_BUILD_TOOLS_VERSION=31.0.0 \
     APPIUM_VERSION=1.22.0 \
     ATD_VERSION=1.2
@@ -65,7 +65,7 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 #=====================
 # Install Android SDK
 #=====================
-ARG ANDROID_PLATFORM_VERSION="android-25"
+ARG ANDROID_PLATFORM_VERSION="android-29"
 ENV ANDROID_HOME=/root
 
 RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zip && \
@@ -73,7 +73,9 @@ RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zi
     chmod a+x -R $ANDROID_HOME && \
     chown -R root:root $ANDROID_HOME
 
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
+RUN mv cmdline-tools tools && mkdir cmdline-tools && mv tools cmdline-tools/tools
+
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/tools:$ANDROID_HOME/cmdline-tools/tools/bin
 
 # https://askubuntu.com/questions/885658/android-sdk-repositories-cfg-could-not-be-loaded
 RUN mkdir -p ~/.android && \
