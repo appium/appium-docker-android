@@ -45,6 +45,18 @@ if [ "$ADB_SHELL" = true ]; then
     CMD+=" --allow-insecure adb_shell"
 fi
 
+if [ "$LOG_TIMESTAMP" = true ]; then
+    CMD+=" --log-timestamp"
+fi
+
+if [ "$LOCAL_TIMEZONE" = true ]; then
+    CMD+=" --local-timezone"
+fi
+
+if [ "$LOG_NO_COLORS" = true ]; then
+    CMD+=" --log-no-colors"
+fi
+
 pkill -x xvfb-run
 rm -rf /tmp/.X99-lock
 
