@@ -1,4 +1,9 @@
 #!/bin/bash
+# Override adb:
+override_adb(){
+    ls
+}
+override_adb
 
 NODE_CONFIG_JSON="/root/nodeconfig.json"
 DEFAULT_CAPABILITIES_JSON="/root/defaultcapabilities.json"
