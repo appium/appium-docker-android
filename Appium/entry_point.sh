@@ -1,7 +1,9 @@
 #!/bin/bash
 # Override adb:
 override_adb(){
-    ls
+    # goal : make sure the default adb is overriden
+    # redirect goal : dont display the command in the appium server side log
+    ln -sv -f /usr/bin/adb /root/platform-tools/adb > /tmp/override.txt
 }
 override_adb
 
