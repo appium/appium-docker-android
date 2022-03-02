@@ -109,6 +109,11 @@ RUN wget -nv -O RemoteAppiumManager.jar "https://github.com/AppiumTestDistributi
 ENV TZ="US/Pacific"
 RUN echo "${TZ}" > /etc/timezone
 
+#==================================
+# Fix Issue adb kill-device : offline issue
+#==================================
+RUN apt-get install -y adb && ln -sv -f /usr/bin/adb /root/platform-tools/adb
+COPY apk-utils.js /usr/lib/node_modules/appium/node_modules/appium-adb/build/lib/tools/apk-utils.js
 #===============
 # Expose Ports
 #---------------
