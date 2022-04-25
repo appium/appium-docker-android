@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV SDK_VERSION=sdk-tools-linux-3859397 \
     ANDROID_BUILD_TOOLS_VERSION=31.0.0 \
-    APPIUM_VERSION=1.22.1 \
+    APPIUM_VERSION=1.22.2 \
     ATD_VERSION=1.2
 
 #=============
