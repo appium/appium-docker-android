@@ -1,10 +1,10 @@
-FROM ubuntu:bionic-20200311
+FROM ubuntu:bionic-20220427
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV SDK_VERSION=commandlinetools-linux-8092744_latest \
     ANDROID_BUILD_TOOLS_VERSION=31.0.0 \
-    APPIUM_VERSION=1.22.3 \
+    APPIUM_VERSION=next \
     ATD_VERSION=1.2
 
 #=============
@@ -90,7 +90,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Install latest nodejs, npm, appium
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
+RUN curl -sL https://deb.nodesource.com/setup_17.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root && \
     exit 0 && \
@@ -99,6 +99,8 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
+
+RUN appium driver install uiautomator2 && appium driver install xcuitest
 
 #================================
 # APPIUM Test Distribution (ATD)
