@@ -2,7 +2,7 @@ FROM ubuntu:bionic-20200311
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV SDK_VERSION=commandlinetools-linux-7583922_latest \
+ENV SDK_VERSION=commandlinetools-linux-8092744_latest \
     ANDROID_BUILD_TOOLS_VERSION=31.0.0 \
     APPIUM_VERSION=1.22.3 \
     ATD_VERSION=1.2
