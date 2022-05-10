@@ -100,7 +100,8 @@ RUN curl -sL https://deb.nodesource.com/setup_17.x | bash && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
 
-RUN appium driver install uiautomator2 && appium driver install xcuitest
+ARG DRIVER="uiautomator2,xcuitest"
+RUN echo $DRIVER | xargs -d, -L 1 |xargs -L 1 appium driver install
 
 #================================
 # APPIUM Test Distribution (ATD)
