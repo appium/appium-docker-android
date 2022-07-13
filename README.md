@@ -161,7 +161,7 @@ $ docker run -d -p 4723:4723 -e REMOTE_ADB=true -e ANDROID_DEVICES=192.168.0.5:5
 
 2. Start the ADB in server with the following command on the machine where the real device is connected
     ```
-    $ adb kill-server # to make sure there is only one adb server running
+    $ adb kill-server # to make sure there is only one adb server running or you won't find any devices
     $ adb -a -P <any_available_port> nodaemon server >/tmp/adb_server_log 2>&1 &
 
     # If you want to start the server at default port remove the -P and port number
