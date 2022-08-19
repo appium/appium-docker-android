@@ -1,11 +1,13 @@
-FROM ubuntu:bionic-20200311
+ARG BASE_IMAGE=ubuntu:bionic-20220801
+
+FROM ${BASE_IMAGE}
+
+ENV BASE_IMAGE=${BASE_IMAGE} \
+    SDK_VERSION=commandlinetools-linux-8512546_latest \
+    ANDROID_BUILD_TOOLS_VERSION=33.0.0 \
+    APPIUM_VERSION=1.22.3
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-ENV SDK_VERSION=sdk-tools-linux-3859397 \
-    ANDROID_BUILD_TOOLS_VERSION=31.0.0 \
-    APPIUM_VERSION=1.22.3 \
-    ATD_VERSION=1.2
 
 #=============
 # Set WORKDIR
@@ -41,6 +43,7 @@ WORKDIR /root
 #   Infrastructure management (client-side)
 #==================
 RUN apt-get -qqy update && \
+    apt dist-upgrade -y && \
     apt-get -qqy --no-install-recommends install \
     openjdk-8-jdk \
     ca-certificates \
@@ -65,30 +68,29 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 #=====================
 # Install Android SDK
 #=====================
-ARG ANDROID_PLATFORM_VERSION="android-25"
-ENV ANDROID_HOME=/root
+ENV ANDROID_DOWNLOAD_PATH=/root \
+    ANDROID_HOME=/opt/android/cmdline-tools
 
 RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zip && \
     unzip tools.zip && rm tools.zip && \
-    chmod a+x -R $ANDROID_HOME && \
-    chown -R root:root $ANDROID_HOME
-
-ENV PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
+    chmod a+x -R ${ANDROID_DOWNLOAD_PATH} && \
+    chown -R root:root ${ANDROID_DOWNLOAD_PATH} && \
+    mkdir -p ${ANDROID_HOME} && \
+    mv cmdline-tools ${ANDROID_HOME}/tools
+ENV PATH=$PATH:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin
 
 # https://askubuntu.com/questions/885658/android-sdk-repositories-cfg-could-not-be-loaded
 RUN mkdir -p ~/.android && \
     touch ~/.android/repositories.cfg && \
     echo y | sdkmanager "platform-tools" && \
-    echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" && \
-    echo y | sdkmanager "platforms;$ANDROID_PLATFORM_VERSION"
-
+    echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 
 #====================================
 # Install latest nodejs, npm, appium
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root && \
     exit 0 && \
@@ -97,11 +99,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
-
-#================================
-# APPIUM Test Distribution (ATD)
-#================================
-RUN wget -nv -O RemoteAppiumManager.jar "https://github.com/AppiumTestDistribution/ATD-Remote/releases/download/${ATD_VERSION}/RemoteAppiumManager-${ATD_VERSION}.jar"
 
 #==================================
 # Fix Issue with timezone mismatch
@@ -114,11 +111,8 @@ RUN echo "${TZ}" > /etc/timezone
 #---------------
 # 4723
 #   Appium port
-# 4567
-#   ATD port
 #===============
 EXPOSE 4723
-EXPOSE 4567
 
 #====================================================
 # Scripts to run appium and connect to Selenium Grid
