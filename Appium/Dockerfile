@@ -69,15 +69,16 @@ ENV JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre" \
 # Install Android SDK
 #=====================
 ENV ANDROID_DOWNLOAD_PATH=/root \
-    ANDROID_HOME=/opt/android/cmdline-tools
+    ANDROID_HOME=/opt/android \
+    ANDROID_TOOL_HOME=/opt/android/cmdline-tools
 
 RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zip && \
     unzip tools.zip && rm tools.zip && \
     chmod a+x -R ${ANDROID_DOWNLOAD_PATH} && \
     chown -R root:root ${ANDROID_DOWNLOAD_PATH} && \
-    mkdir -p ${ANDROID_HOME} && \
-    mv cmdline-tools ${ANDROID_HOME}/tools
-ENV PATH=$PATH:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin
+    mkdir -p ${ANDROID_TOOL_HOME} && \
+    mv cmdline-tools ${ANDROID_TOOL_HOME}/tools
+ENV PATH=$PATH:${ANDROID_TOOL_HOME}/tools:${ANDROID_TOOL_HOME}/tools/bin
 
 # https://askubuntu.com/questions/885658/android-sdk-repositories-cfg-could-not-be-loaded
 RUN mkdir -p ~/.android && \

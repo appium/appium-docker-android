@@ -11,11 +11,14 @@
 }
 
 @test 'Verify Android SDK is installed' {
-    [ $ANDROID_HOME == "/opt/android/cmdline-tools" ]
+    [ $ANDROID_HOME == "/opt/android" ]
 
     android_list_sdk=$(sdkmanager --list)
     [[ $android_list_sdk == *"Installed packages:"* ]]
     [[ $android_list_sdk == *"Available Packages:"* ]]
+
+    adb_output=$(adb --version)
+    [[ $adb_output == *"Installed as"* ]]
 }
 
 @test 'Verify Appium server is installed' {
