@@ -11,7 +11,7 @@
 }
 
 @test 'Verify Android SDK is installed' {
-    [ $ANDROID_HOME == "/root" ]
+    [ $ANDROID_HOME == "/opt/android/cmdline-tools" ]
 
     android_list_sdk=$(sdkmanager --list)
     [[ $android_list_sdk == *"Installed packages:"* ]]
