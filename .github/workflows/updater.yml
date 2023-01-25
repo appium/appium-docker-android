@@ -1,0 +1,67 @@
+name: Automation base image updater
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    # Run at the end of every day
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
+
+      - name: Update base image
+        run: |
+          old_base_img=$(bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/dockerfile_base.sh) get Dockerfile)
+          echo "OLD_BASE=${old_base_img}" >> $GITHUB_ENV
+          
+          IFS=':' read -r -a base <<< "${old_base_img}"
+          echo ${base[@]}
+
+          bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/sldi.sh) ${base[0]} ${base[1]} bionic bionic-
+
+          if [ -f tmp-sldi.txt ]; then
+            new_base_img=$(cat tmp-sldi.txt)
+            echo "NEW_BASE=${new_base_img}" >> $GITHUB_ENV
+            bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/dockerfile_base.sh) replace ${old_base_img} ${new_base_img} Dockerfile
+            echo "ANY_CHANGES=true" >> "$GITHUB_ENV"
+          else
+            echo "There is no changes, next steps will be skipped"
+            echo "ANY_CHANGES=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Prepare tag and release note
+        if:  env.ANY_CHANGES == 'true'
+        run: |
+          git fetch --all --tags 
+          new_tag=$(bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/git_tag_creator.sh) p)
+          echo "NEW_RELEASE_TAG=${new_tag}" >> $GITHUB_ENV
+
+      - name: Commit changes and tag
+        if:  env.ANY_CHANGES == 'true' 
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: 'master'
+          commit_message: Update base image from  ${{ env.OLD_BASE }} to ${{ env.NEW_BASE }}
+          tagging_message: ${{ env.NEW_RELEASE_TAG }}
+
+      - name: Release new version
+        if:  env.ANY_CHANGES == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ env.NEW_RELEASE_TAG }}
+          name: ${{ env.NEW_RELEASE_TAG }}
+          body: |
+            Changes:
+
+            - Update base image from  ${{ env.OLD_BASE }} to ${{ env.NEW_BASE }}
+          draft: false
+          prerelease: false

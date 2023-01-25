@@ -1,6 +1,4 @@
-ARG BASE_IMAGE=ubuntu:bionic-20220801
-
-FROM ${BASE_IMAGE}
+FROM ubuntu:bionic-20220801
 
 ENV BASE_IMAGE=${BASE_IMAGE} \
     SDK_VERSION=commandlinetools-linux-8512546_latest \
