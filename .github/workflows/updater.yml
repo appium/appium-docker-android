@@ -1,8 +1,6 @@
 name: Automation base image updater
 
 on:
-  push:
-    branches: [ master ]
   schedule:
     # Run at the end of every day
     - cron: "0 0 * * *"
