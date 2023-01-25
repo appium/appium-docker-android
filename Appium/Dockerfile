@@ -1,4 +1,4 @@
-FROM ubuntu:bionic-20220801
+FROM ubuntu:bionic-20221215
 
 ENV BASE_IMAGE=${BASE_IMAGE} \
     SDK_VERSION=commandlinetools-linux-8512546_latest \
