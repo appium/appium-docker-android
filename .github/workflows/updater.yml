@@ -19,7 +19,7 @@ jobs:
 
       - name: Update base image
         run: |
-          old_base_img=$(bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/dockerfile_base.sh) get Dockerfile)
+          old_base_img=$(bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/dockerfile_base.sh) get Appium/Dockerfile)
           echo "OLD_BASE=${old_base_img}" >> $GITHUB_ENV
           
           IFS=':' read -r -a base <<< "${old_base_img}"
@@ -30,7 +30,7 @@ jobs:
           if [ -f tmp-sldi.txt ]; then
             new_base_img=$(cat tmp-sldi.txt)
             echo "NEW_BASE=${new_base_img}" >> $GITHUB_ENV
-            bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/dockerfile_base.sh) replace ${old_base_img} ${new_base_img} Dockerfile
+            bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.1/dockerfile_base.sh) replace ${old_base_img} ${new_base_img} Appium/Dockerfile
             echo "ANY_CHANGES=true" >> "$GITHUB_ENV"
           else
             echo "There is no changes, next steps will be skipped"
