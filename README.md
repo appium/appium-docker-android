@@ -10,7 +10,6 @@
 
 - Helps in quick & easier setup of automation environment for Appium + Android
 - Without this approach, you'll need to do each of the automation setup steps manually; which can be slow and error prone
-- Refer to [Selenium Conference Youtube video](https://www.youtube.com/watch?v=jGW6ycW_tTQ&list=PLRdSclUtJDYXFVU37NEqh4KkT78BLqjcG&index=7) for more details
 
 ### Images Included:
 
@@ -23,7 +22,6 @@
 
 The following `--build-arg`s are available:
 - ANDROID_BUILD_TOOLS_VERSION
-- ANDROID_PLATFORM_VERSION
 - APPIUM_VERSION
 - SDK_VERSION
 
