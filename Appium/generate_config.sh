@@ -3,31 +3,31 @@
 node_config_json=$1
 
 if [ -z "$PLATFORM_NAME" ]; then
-  PLATFORM_NAME="Android"
+	PLATFORM_NAME="Android"
 fi
 
 if [ -z "$APPIUM_HOST" ]; then
-  APPIUM_HOST=$(hostname -i)
+	APPIUM_HOST=$(hostname -i)
 fi
 
 if [ -z "$APPIUM_PORT" ]; then
-  APPIUM_PORT=4723
+	APPIUM_PORT=4723
 fi
 
 if [ -z "$SELENIUM_HOST" ]; then
-  SELENIUM_HOST="172.17.0.1"
+	SELENIUM_HOST="172.17.0.1"
 fi
 
 if [ -z "$SELENIUM_PORT" ]; then
-  SELENIUM_PORT=4444
+	SELENIUM_PORT=4444
 fi
 
 if [ -z "$BROWSER_NAME" ]; then
-  BROWSER_NAME="android"
+	BROWSER_NAME="android"
 fi
 
 if [ -z "$NODE_TIMEOUT" ]; then
-  NODE_TIMEOUT=300
+	NODE_TIMEOUT=300
 fi
 
 #Get device names
