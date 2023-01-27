@@ -65,12 +65,15 @@ jobs:
           prerelease: false
 
       - name: Build docker image
+        if:  env.ANY_CHANGES == 'true'
         run: ./app.sh build ${{ env.NEW_RELEASE_TAG }}
 
       - name: Test docker image
+        if:  env.ANY_CHANGES == 'true'
         run: ./app.sh test ${{ env.NEW_RELEASE_TAG }}
 
       - name: Push docker image
+        if:  env.ANY_CHANGES == 'true'
         run: |
           docker login -u=${{secrets.DOCKER_USERNAME}} -p=${{secrets.DOCKER_PASSWORD}}
           ./app.sh push ${{ env.NEW_RELEASE_TAG }}
