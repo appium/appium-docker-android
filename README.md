@@ -19,11 +19,6 @@
 
 	$ docker build -t "appium/appium:local" -f Appium/Dockerfile Appium
 
-The following `--build-arg`s are available:
-- ANDROID_BUILD_TOOLS_VERSION
-- APPIUM_VERSION
-- SDK_VERSION
-
 
 ## Quick Start
 
