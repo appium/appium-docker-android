@@ -1,4 +1,4 @@
-FROM ubuntu:bionic-20221215
+FROM ubuntu:
 
 ENV SDK_VERSION=commandlinetools-linux-8512546_latest \
     ANDROID_BUILD_TOOLS_VERSION=33.0.0 \
