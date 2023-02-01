@@ -6,7 +6,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  build:
+  update-base:
     runs-on: ubuntu-20.04
 
     steps:
