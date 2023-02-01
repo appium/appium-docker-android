@@ -1,32 +1,32 @@
 #!/bin/bash
 
-node_config_json=$1
+node_config_json=${1}
 
-if [ -z "$PLATFORM_NAME" ]; then
+if [ -z "${PLATFORM_NAME}" ]; then
 	PLATFORM_NAME="Android"
 fi
 
-if [ -z "$APPIUM_HOST" ]; then
+if [ -z "${APPIUM_HOST}" ]; then
 	APPIUM_HOST=$(hostname -i)
 fi
 
-if [ -z "$APPIUM_PORT" ]; then
+if [ -z "${APPIUM_PORT}" ]; then
 	APPIUM_PORT=4723
 fi
 
-if [ -z "$SELENIUM_HOST" ]; then
+if [ -z "${SELENIUM_HOST}" ]; then
 	SELENIUM_HOST="172.17.0.1"
 fi
 
-if [ -z "$SELENIUM_PORT" ]; then
+if [ -z "${SELENIUM_PORT}" ]; then
 	SELENIUM_PORT=4444
 fi
 
-if [ -z "$BROWSER_NAME" ]; then
+if [ -z "${BROWSER_NAME}" ]; then
 	BROWSER_NAME="android"
 fi
 
-if [ -z "$NODE_TIMEOUT" ]; then
+if [ -z "${NODE_TIMEOUT}" ]; then
 	NODE_TIMEOUT=300
 fi
 
@@ -79,4 +79,4 @@ nodeconfig=$(cat <<_EOF
 }
 _EOF
 )
-echo "$nodeconfig" > $node_config_json
+echo "${nodeconfig}" > ${node_config_json}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-load ../node_modules/bats-mock/stub
+load ../../node_modules/bats-mock/stub
 
 default_node_config=\
 '{
@@ -35,10 +35,10 @@ default_node_config=\
     "hubPort": 4444
   }
 }'
-node_config_json="/root/nodeconfig.json"
+node_config_json="${APP_PATH}/nodeconfig.json"
 adb_devices_output='73QDU16916010699 device 4b13354b80b36200 device'
 
-@test 'Verify selenium grid config is created' {
+@test '[Selenium] Verify selenium grid config is created' {
   stub adb \
     "devices : echo $adb_devices_output" \
     "-s 73QDU16916010699 shell getprop ro.build.version.release : echo 7.1.1" \
@@ -46,8 +46,8 @@ adb_devices_output='73QDU16916010699 device 4b13354b80b36200 device'
     "-s 4b13354b80b36200 shell getprop ro.build.version.release : echo 5.1.1" \
     "-s 4b13354b80b36200 shell getprop ro.serialno : echo 4b13354b80b36200"
 
-  APPIUM_HOST=127.0.0.1 run /root/generate_config.sh $node_config_json
-  [ "$(cat $node_config_json)" == "$default_node_config" ]
+  APPIUM_HOST=127.0.0.1 run ${APP_PATH}/generate_selenium_config.sh ${node_config_json}
+  [ "$(cat ${node_config_json})" == "${default_node_config}" ]
 
   unstub adb
 }

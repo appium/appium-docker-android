@@ -22,7 +22,7 @@ function build() {
 
 function test() {
 	echo "Test docker image with version \"${VER}\""
-	docker run --rm -v $PWD/Appium/tests:/root/tests ${IMAGE}:${VER} bash tests/run-bats.sh
+	docker run --rm -v $PWD/Appium/tests:/home/androidusr/appium-docker-android/tests ${IMAGE}:${VER} ./appium-docker-android/tests/run-bats.sh
 }
 
 function push() {

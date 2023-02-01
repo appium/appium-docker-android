@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ ! -z "$REMOTE_ADB" ]; then
+if [ ! -z "${REMOTE_ADB}" ]; then
 
-	if [ -z "$REMOTE_ADB_POLLING_SEC" ]; then
+	if [ -z "${REMOTE_ADB_POLLING_SEC}" ]; then
 		REMOTE_ADB_POLLING_SEC=5
 	fi
 

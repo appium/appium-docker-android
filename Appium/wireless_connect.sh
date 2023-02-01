@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ ! -z "$ANDROID_DEVICES" ]; then
+if [ ! -z "${ANDROID_DEVICES}" ]; then
 	connected_devices=$(adb devices)
-	IFS=',' read -r -a array <<<"$ANDROID_DEVICES"
+	IFS=',' read -r -a array <<<"${ANDROID_DEVICES}"
 	for i in "${!array[@]}"; do
 		array_device=$(echo ${array[$i]} | tr -d " ")
 		#string contains check
