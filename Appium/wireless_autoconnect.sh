@@ -10,7 +10,7 @@ if [ ! -z "${REMOTE_ADB}" ]; then
 		while true; do
 			#to avoid immediate run
 			sleep ${REMOTE_ADB_POLLING_SEC}
-			/root/wireless_connect.sh
+			${APP_PATH}/wireless_connect.sh
 		done
 	}
 
