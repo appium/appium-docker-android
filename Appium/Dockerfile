@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20230126
+FROM ubuntu:bionic-20230126
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -112,13 +112,18 @@ ENV NODE_VERSION=16
 ENV APPIUM_VERSION=1.22.3
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
-    npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root && \
+    npm install -g appium@${APPIUM_VERSION} && \
     exit 0 && \
     npm cache clean && \
     apt-get remove --purge -y npm && \
     apt-get autoremove --purge -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get clean
+
+#====================================================
+# Fix permission issue to download e.g. chromedriver
+#====================================================
+RUN chown -R 1300:1301 /usr/lib/node_modules/appium
 
 #==============
 # Copy scripts
