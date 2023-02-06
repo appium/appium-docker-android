@@ -109,7 +109,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
 ENV NODE_VERSION=18
-ENV APPIUM_VERSION=1.22.3
+ENV APPIUM_VERSION=2.0.0-beta.53
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
@@ -142,6 +142,14 @@ ENV APP_PATH=/home/androidusr/${SCRIPT_PATH}
 # Use created user
 #==================
 USER 1300:1301
+
+#===============================
+# Install basic Android drivers
+#===============================
+ENV APPIUM_DRIVER_ESPRESSO_VERSION="2.15.1"
+ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="2.12.2"
+RUN appium driver install espresso@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
+    appium driver install uiautomator2@${APPIUM_DRIVER_UIAUTOMATOR2_VERSION}
 
 #===============
 # Expose Port
