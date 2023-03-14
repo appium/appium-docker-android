@@ -109,7 +109,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
 ENV NODE_VERSION=18
-ENV APPIUM_VERSION=2.0.0-beta.53
+ENV APPIUM_VERSION=2.0.0-beta.57
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
@@ -146,10 +146,12 @@ USER 1300:1301
 #===============================
 # Install basic Android drivers
 #===============================
-ENV APPIUM_DRIVER_ESPRESSO_VERSION="2.15.1"
-ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="2.12.2"
-RUN appium driver install espresso@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
-    appium driver install uiautomator2@${APPIUM_DRIVER_UIAUTOMATOR2_VERSION}
+ENV APPIUM_DRIVER_FLUTTER_VERSION="1.13.1"
+ENV APPIUM_DRIVER_ESPRESSO_VERSION="2.17.0"
+ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="2.12.6"
+RUN appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
+    appium driver install --source=npm espresso@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
+    appium driver install --source=npm uiautomator2@${APPIUM_DRIVER_UIAUTOMATOR2_VERSION} && \
 
 #===============
 # Expose Port
