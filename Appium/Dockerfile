@@ -149,9 +149,9 @@ USER 1300:1301
 ENV APPIUM_DRIVER_FLUTTER_VERSION="1.13.1"
 ENV APPIUM_DRIVER_ESPRESSO_VERSION="2.17.0"
 ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="2.12.6"
-RUN appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
-    appium driver install --source=npm espresso@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
-    appium driver install --source=npm uiautomator2@${APPIUM_DRIVER_UIAUTOMATOR2_VERSION}
+RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
+    appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
+    appium driver install --source=npm appium-uiautomator2-driver@${APPIUM_DRIVER_UIAUTOMATOR2_VERSION}
 
 #===============
 # Expose Port
