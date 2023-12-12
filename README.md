@@ -59,6 +59,8 @@
 	}
 	```
 
+5. For Windows users, it is essential to carefully consider the usage of `host.docker.internal`. This enables applications within the container to access resources on the host machine. When facing issues on the Windows platform, it is recommended to verify whether the connected Android device is inaccessible within the container. If so, contemplate configuring the pertinent options to utilize `host.docker.internal`. For additional details, refer to https://github.com/appium/appium-docker-android/issues/140.
+
 ## Additional configuration
 
 ### Share Android identification key
