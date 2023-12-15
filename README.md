@@ -45,7 +45,7 @@
 	On Windows OS, you need to specify the host to `host.docker.internal`
 
 	```
-	$ docker exec -it appium-container "adb devices -H host.docker.internal devices"
+	$ docker exec -it appium-container adb -H host.docker.internal devices
 	```
 
 4. Run UI Test with following test configuration
