@@ -42,6 +42,12 @@
 	$ docker exec -it appium-container adb devices
 	```
 
+	On Windows OS, you need to specify the host to `host.docker.internal`
+
+	```
+	$ docker exec -it appium-container adb -H host.docker.internal devices
+	```
+
 4. Run UI Test with following test configuration
 
 	```
@@ -58,6 +64,8 @@
 	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
 	}
 	```
+
+	On Windows OS, you need to set the capability `appium:remoteAdbHost` to `host.docker.internal`. This capability is supported by various drivers: UiAutomator2, Espresso, Flutter.
 
 ## Additional configuration
 
