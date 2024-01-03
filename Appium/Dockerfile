@@ -109,7 +109,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
 ENV NODE_VERSION=18
-ENV APPIUM_VERSION=2.2.2
+ENV APPIUM_VERSION=2.3.0
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
@@ -146,9 +146,9 @@ USER 1300:1301
 #===============================
 # Install basic Android drivers
 #===============================
-ENV APPIUM_DRIVER_ESPRESSO_VERSION="2.29.2"
-ENV APPIUM_DRIVER_FLUTTER_VERSION="2.2.2"
-ENV APPIUM_DRIVER_GECKO_VERSION="1.2.9"
+ENV APPIUM_DRIVER_ESPRESSO_VERSION="2.37.0"
+ENV APPIUM_DRIVER_FLUTTER_VERSION="2.3.0"
+ENV APPIUM_DRIVER_GECKO_VERSION="1.2.10"
 ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="2.34.1"
 RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
     appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
