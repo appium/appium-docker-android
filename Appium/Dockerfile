@@ -45,6 +45,7 @@ RUN apt-get -qqy update && \
     wget \
     xvfb \
     zip \
+    ffmpeg \
   && rm -rf /var/lib/apt/lists/*
 
 #===============
