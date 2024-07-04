@@ -61,7 +61,7 @@
 	        caps.setCapability("app", "/home/androidusr/sample.apk");
 	        //Get the IP Address of boot2docker
 	        //docker inspect $(docker ps -q) | grep IPA
-	        driver = new AndroidDriver<MobileElement>(new URL("http://192.168.99.100:32769/wd/hub"), caps);
+	        driver = new AndroidDriver<MobileElement>(new URL("http://xx.xx.xx.xx:4723/wd/hub"), caps);
 	}
 	```
 
