@@ -110,7 +110,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Using this workaround to install Appium -> https://github.com/appium/appium/issues/10020 -> Please remove this workaround asap
 #====================================
 ENV NODE_VERSION=18
-ENV APPIUM_VERSION=2.5.4
+ENV APPIUM_VERSION=2.11.1
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
