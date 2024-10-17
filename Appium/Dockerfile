@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20240918
+FROM ubuntu:focal-20241011
 
 ENV DEBIAN_FRONTEND=noninteractive
 
