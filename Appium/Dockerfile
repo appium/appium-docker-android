@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20250404
+FROM ubuntu:noble-20250529
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -11,11 +11,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 #   Transfer data from or to a server
 # gnupg
 #   Encryption software. It is needed for nodejs
-# libgconf-2-4
-#   Required package for chrome and chromedriver to run on Linux
 # libqt5webkit5
 #   Web content engine (Fix issue in Android)
-# openjdk-11-jdk
+# openjdk-17-jdk
 #   Java
 # sudo
 #   Sudo user
@@ -36,9 +34,8 @@ RUN apt-get -qqy update && \
     ca-certificates \
     curl \
     gnupg \
-    libgconf-2-4 \
     libqt5webkit5 \
-    openjdk-11-jdk \
+    openjdk-17-jdk \
     sudo \
     tzdata \
     unzip \
@@ -51,7 +48,7 @@ RUN apt-get -qqy update && \
 #===============
 # Set JAVA_HOME
 #===============
-ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64" \
+ENV JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64" \
     PATH=$PATH:$JAVA_HOME/bin
 
 #===============================
@@ -81,7 +78,7 @@ WORKDIR /home/androidusr
 #=====================
 # Install Android SDK
 #=====================
-ENV SDK_VERSION=commandlinetools-linux-8512546_latest
+ENV SDK_VERSION=commandlinetools-linux-11076708_latest
 ENV ANDROID_BUILD_TOOLS_VERSION=34.0.0
 ENV ANDROID_FOLDER_NAME=cmdline-tools
 ENV ANDROID_DOWNLOAD_PATH=/home/androidusr/${ANDROID_FOLDER_NAME} \
@@ -109,7 +106,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Install latest nodejs, npm, appium
 #====================================
 ENV NODE_VERSION=22
-ENV APPIUM_VERSION=2.18.0
+ENV APPIUM_VERSION=2.19.0
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
@@ -146,9 +143,9 @@ USER 1300:1301
 #===============================
 # Install basic Android drivers
 #===============================
-ENV APPIUM_DRIVER_ESPRESSO_VERSION="4.1.5"
-ENV APPIUM_DRIVER_FLUTTER_VERSION="2.15.0"
-ENV APPIUM_DRIVER_FLUTTER_INTEGRATION_VERSION="1.1.4"
+ENV APPIUM_DRIVER_ESPRESSO_VERSION="4.1.13"
+ENV APPIUM_DRIVER_FLUTTER_VERSION="2.17.0"
+ENV APPIUM_DRIVER_FLUTTER_INTEGRATION_VERSION="1.2.0"
 ENV APPIUM_DRIVER_GECKO_VERSION="1.4.3"
 ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="4.2.3"
 RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \

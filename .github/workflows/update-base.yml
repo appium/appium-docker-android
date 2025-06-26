@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: 'master'
 
@@ -23,7 +23,7 @@ jobs:
           IFS=':' read -r -a base <<< "${old_base_img}"
           echo ${base[@]}
 
-          bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.2/sldi.sh) ${base[0]} ${base[1]} focal focal-
+          bash <(curl -s https://raw.githubusercontent.com/budtmo/sldi/v0.2/sldi.sh) ${base[0]} ${base[1]} noble noble-
 
           if [ -f tmp-sldi.txt ]; then
             new_base_img=$(cat tmp-sldi.txt)
