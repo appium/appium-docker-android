@@ -79,7 +79,7 @@ WORKDIR /home/androidusr
 # Install Android SDK
 #=====================
 ENV SDK_VERSION=commandlinetools-linux-13114758_latest
-ENV ANDROID_BUILD_TOOLS_VERSION=34.0.0
+ENV ANDROID_BUILD_TOOLS_VERSION=36.0.0
 ENV ANDROID_FOLDER_NAME=cmdline-tools
 ENV ANDROID_DOWNLOAD_PATH=/home/androidusr/${ANDROID_FOLDER_NAME} \
     ANDROID_HOME=/opt/android \
