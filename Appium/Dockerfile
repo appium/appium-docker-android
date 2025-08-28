@@ -78,7 +78,7 @@ WORKDIR /home/androidusr
 #=====================
 # Install Android SDK
 #=====================
-ENV SDK_VERSION=commandlinetools-linux-11076708_latest
+ENV SDK_VERSION=commandlinetools-linux-13114758_latest
 ENV ANDROID_BUILD_TOOLS_VERSION=34.0.0
 ENV ANDROID_FOLDER_NAME=cmdline-tools
 ENV ANDROID_DOWNLOAD_PATH=/home/androidusr/${ANDROID_FOLDER_NAME} \
@@ -106,7 +106,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Install latest nodejs, npm, appium
 #====================================
 ENV NODE_VERSION=22
-ENV APPIUM_VERSION=2.19.0
+ENV APPIUM_VERSION=3.0.1
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
@@ -143,10 +143,10 @@ USER 1300:1301
 #===============================
 # Install basic Android drivers
 #===============================
-ENV APPIUM_DRIVER_ESPRESSO_VERSION="4.1.15"
-ENV APPIUM_DRIVER_FLUTTER_VERSION="2.18.1"
-ENV APPIUM_DRIVER_GECKO_VERSION="1.4.3"
-ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="4.2.7"
+ENV APPIUM_DRIVER_ESPRESSO_VERSION="5.0.1"
+ENV APPIUM_DRIVER_FLUTTER_VERSION="3.0.0"
+ENV APPIUM_DRIVER_GECKO_VERSION="2.0.4"
+ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="5.0.0"
 RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
     appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
     appium driver install --source=npm appium-geckodriver@${APPIUM_DRIVER_GECKO_VERSION} && \
