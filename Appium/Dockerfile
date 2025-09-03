@@ -1,4 +1,4 @@
-FROM ubuntu:noble-20250716
+FROM ubuntu:
 
 ENV DEBIAN_FRONTEND=noninteractive
 
