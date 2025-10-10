@@ -106,7 +106,7 @@ ENV PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools
 # Install latest nodejs, npm, appium
 #====================================
 ENV NODE_VERSION=22
-ENV APPIUM_VERSION=3.0.2
+ENV APPIUM_VERSION=3.1.0
 RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash && \
     apt-get -qqy install nodejs && \
     npm install -g appium@${APPIUM_VERSION} && \
