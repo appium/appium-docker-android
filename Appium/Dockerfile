@@ -145,7 +145,7 @@ USER 1300:1301
 #===============================
 ENV APPIUM_DRIVER_ESPRESSO_VERSION="6.0.5"
 ENV APPIUM_DRIVER_FLUTTER_VERSION="3.2.0"
-ENV APPIUM_DRIVER_GECKO_VERSION="2.0.4"
+ENV APPIUM_DRIVER_GECKO_VERSION="2.0.6"
 ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="5.0.5"
 RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
     appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
