@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION="noble-20260113"
+ARG UBUNTU_VERSION="noble-20260210.1"
 FROM ubuntu:${UBUNTU_VERSION} AS android_img
 
 #==================
