@@ -1,5 +1,4 @@
-ARG UBUNTU_VERSION="noble-20260210.1"
-FROM ubuntu:${UBUNTU_VERSION} AS android_img
+FROM ubuntu:noble-20260210.1 AS android_img
 
 #==================
 # General Packages
@@ -47,7 +46,7 @@ RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zi
     echo y | sdkmanager "platform-tools" && \
     echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 
-FROM ubuntu:${UBUNTU_VERSION}
+FROM ubuntu:noble-20260210.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 
