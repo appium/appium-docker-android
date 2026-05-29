@@ -116,7 +116,7 @@ RUN groupadd ${USERNAME} \
 #================
 # Install Appium
 #================
-ENV APPIUM_VERSION=3.3.0
+ENV APPIUM_VERSION=3.4.2
 RUN npm install -g appium@${APPIUM_VERSION}
 
 #====================================================
