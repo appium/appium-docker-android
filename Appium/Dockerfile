@@ -53,8 +53,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 #==================
 # General Packages
 #------------------
-# libqt5webkit5
-#   Web content engine (Fix issue in Android)
 # openjdk-25-jdk
 #   Java
 # tzdata
@@ -65,7 +63,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -qqy update && \
     apt dist-upgrade -y && \
     apt-get -qqy --no-install-recommends install \
-    libqt5webkit5 \
     openjdk-25-jdk \
     tzdata \
     xvfb \

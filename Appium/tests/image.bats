@@ -32,7 +32,7 @@
 
 @test '[Docker] Verify Timezone' {
     timezone=$(cat /etc/timezone)
-    [ ${timezone} == "Etc/${TZ}" ]
+    [ ${timezone} == "${TZ}" ]
 }
 
 @test '[Docker] Verify used user' {
