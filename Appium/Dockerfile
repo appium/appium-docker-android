@@ -113,7 +113,7 @@ RUN groupadd ${USERNAME} \
 #================
 # Install Appium
 #================
-ENV APPIUM_VERSION=3.5.2
+ENV APPIUM_VERSION=3.6.0
 RUN npm install -g appium@${APPIUM_VERSION}
 
 #====================================================
@@ -128,10 +128,10 @@ ENV WORK_PATH=/home/${USERNAME}
 WORKDIR ${WORK_PATH}
 USER ${USERID}:${GROUPID}
 
-ENV APPIUM_DRIVER_ESPRESSO_VERSION="9.0.0"
-ENV APPIUM_DRIVER_FLUTTER_VERSION="3.7.1"
-ENV APPIUM_DRIVER_GECKO_VERSION="3.0.5"
-ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="7.6.2"
+ENV APPIUM_DRIVER_ESPRESSO_VERSION="9.0.6"
+ENV APPIUM_DRIVER_FLUTTER_VERSION="3.9.1"
+ENV APPIUM_DRIVER_GECKO_VERSION="3.0.14"
+ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="8.2.2"
 RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
     appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
     appium driver install --source=npm appium-geckodriver@${APPIUM_DRIVER_GECKO_VERSION} && \
