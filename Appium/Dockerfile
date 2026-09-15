@@ -1,4 +1,4 @@
-FROM ubuntu:resolute@sha256:2260313b31c8c011cd2eebe728008efac1b3982be73eb71348ea2648d2c0e09b AS android_img
+FROM ubuntu:resolute@sha256:513c074113a871b51a8d16ab445c88779d6452d937a164fb5cc479f32668a41d AS android_img
 
 #==================
 # General Packages
@@ -46,7 +46,7 @@ RUN wget -O tools.zip https://dl.google.com/android/repository/${SDK_VERSION}.zi
     echo y | sdkmanager "platform-tools" && \
     echo y | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
 
-FROM ubuntu:resolute@sha256:2260313b31c8c011cd2eebe728008efac1b3982be73eb71348ea2648d2c0e09b
+FROM ubuntu:resolute@sha256:513c074113a871b51a8d16ab445c88779d6452d937a164fb5cc479f32668a41d
 
 ENV DEBIAN_FRONTEND=noninteractive
 
