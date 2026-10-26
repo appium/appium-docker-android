@@ -12,6 +12,24 @@ fi
 APPIUM_LOG="${APPIUM_LOG:-/var/log/appium.log}"
 command="xvfb-run appium --log $APPIUM_LOG"
 
+# Install and enable Appium plugins if needed
+if [ -n "${APPIUM_PLUGINS}" ]; then
+	IFS=',' read -r -a plugins <<<"${APPIUM_PLUGINS}"
+	use_plugins=()
+	for i in "${!plugins[@]}"; do
+		plugin=$(echo "${plugins[$i]}" | tr -d " ")
+		if [ -n "${plugin}" ]; then
+			echo "Installing Appium plugin: ${plugin}"
+			appium plugin install "${plugin}" || true
+			use_plugins+=("${plugin%%@*}")
+		fi
+	done
+	if [ ${#use_plugins[@]} -gt 0 ] && [[ "${APPIUM_ADDITIONAL_PARAMS}" != *"--use-plugins"* ]]; then
+		plugins_arg=$(IFS=','; echo "${use_plugins[*]}")
+		command+=" --use-plugins ${plugins_arg}"
+	fi
+fi
+
 # Adding Selenium configurations if needed
 if [ "${CONNECT_TO_GRID}" = true ]; then
 	NODE_CONFIG_JSON="${APP_PATH}/nodeconfig.json"

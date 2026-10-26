@@ -42,7 +42,7 @@
 	$ docker exec -it appium-container adb devices
 	```
 
-	On Windows OS, you need to specify the host to `host.docker.internal`
+	On Windows and macOS (Docker Desktop without direct USB pass-through), start the ADB server on the host machine (`adb -a nodaemon server start`) and specify the host as `host.docker.internal`:
 
 	```
 	$ docker exec -it appium-container adb -H host.docker.internal devices
@@ -65,7 +65,7 @@
 	}
 	```
 
-	On Windows OS, you need to set the capability `appium:remoteAdbHost` to `host.docker.internal`. This capability is supported by various drivers: UiAutomator2, Espresso, Flutter.
+	On Windows and macOS, set the capability `appium:remoteAdbHost` to `host.docker.internal` (supported by UiAutomator2, Espresso, and Flutter drivers) and connect to `http://localhost:4723` (or `http://host.docker.internal:4723` from another container).
 
 ## Additional configuration
 
@@ -89,11 +89,11 @@ $ docker run --privileged -d -p 4723:4723 -v ~/.android:/home/androidusr/.androi
 
 ### Connect Each Device to a Separate Container
 
-In certain use cases you may want to have a single Appium-Docker-Android container running for each device. To achieve this you must run `adb kill-server` and then provide the `--device` option to `docker run`:
+In certain use cases you may want to have a single Appium-Docker-Android container running for each device. To achieve this you must run `adb kill-server`, provide the `--device` option to `docker run`, and set `-e ADB_LIBUSB=0` so `adb` inside each container only accesses the mounted USB device:
 
 ```
-$ docker run -d -p 4723:4723 --device /dev/bus/usb/XXX/YYY:/dev/bus/usb/XXX/YYY -v ~/.android:/root/.android --name device1 appium/appium
-$ docker run -d -p 4724:4723 --device /dev/bus/usb/XXX/ZZZ:/dev/bus/usb/XXX/ZZZ -v ~/.android:/root/.android --name device2 appium/appium
+$ docker run -d -p 4723:4723 -e ADB_LIBUSB=0 --device /dev/bus/usb/XXX/YYY:/dev/bus/usb/XXX/YYY -v ~/.android:/home/androidusr/.android --name device1 appium/appium
+$ docker run -d -p 4724:4723 -e ADB_LIBUSB=0 --device /dev/bus/usb/XXX/ZZZ:/dev/bus/usb/XXX/ZZZ -v ~/.android:/home/androidusr/.android --name device2 appium/appium
 ```
 
 ### Connect to Android devices by Air
@@ -116,6 +116,14 @@ $ docker run -d -p 4723:4723 -e REMOTE_ADB=true -e ANDROID_DEVICES=192.168.0.5:5
 
 APPIUM_ADDITIONAL_PARAMS="<additional-appium-parameter-here>", e.g. ```--relaxed-security --allow-insecure chromedriver_autodownload --allow-insecure adb_shell```
 
+### Using Appium Plugins
+
+To install and enable Appium plugins when starting the container, pass a comma-separated list of plugin names via `APPIUM_PLUGINS`:
+
+```
+$ docker run --privileged -d -p 4723:4723 -e APPIUM_PLUGINS="images,execute-driver" -v /dev/bus/usb:/dev/bus/usb --name appium-container appium/appium
+```
+
 ### Connect to Selenium Grid
 
 Appium-Docker-Android can be connected with selenium grid by passing following parameters:
@@ -136,7 +144,7 @@ The image generates the node config file, if you would like to provide your own 
 
 - CONNECT\_TO\_GRID=true
 - CUSTOM\_NODE\_CONFIG=true
-- -v \<path\_to\_config>:/root/nodeconfig.json
+- -v \<path\_to\_config>:/home/androidusr/appium-docker-android/nodeconfig.json
 
 ### Docker compose
 
