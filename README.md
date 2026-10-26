@@ -19,6 +19,10 @@
 
 	$ docker build -t "appium/appium:local" -f Appium/Dockerfile Appium
 
+On ARM64 machines (e.g. Apple Silicon macOS or ARM64 Linux), pass `--build-arg TARGETARCH=arm64`:
+
+	$ docker build --build-arg TARGETARCH=arm64 -t "appium/appium:local" -f Appium/Dockerfile Appium
+
 
 ## Quick Start
 

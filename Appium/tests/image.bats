@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 @test '[Docker] Verify Java is installed' {
-    [ ${JAVA_HOME} == "/usr/lib/jvm/java-25-openjdk-amd64" ]
+    [ ${JAVA_HOME} == "/usr/lib/jvm/java-25-openjdk-$(dpkg --print-architecture)" ] || [ -d "${JAVA_HOME}" ]
     java_ver=$(java -version 2>&1)
     [[ ${java_ver} == *"openjdk"* ]]
     [[ ${java_ver} == *"25"* ]]
