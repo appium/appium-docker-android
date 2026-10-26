@@ -1,0 +1,12 @@
+[server]
+port = 5555
+
+[node]
+detect-drivers = false
+
+[relay]
+url = "http://appium_android_device:4723"
+status-endpoint = "/status"
+configs = [
+  "1", '{"platformName": "Android", "appium:automationName": "UiAutomator2"}'
+]

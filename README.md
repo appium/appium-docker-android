@@ -130,6 +130,27 @@ $ docker run --privileged -d -p 4723:4723 -e APPIUM_PLUGINS="images,execute-driv
 
 ### Connect to Selenium Grid
 
+#### Selenium Grid 4 (Appium 2 / 3)
+
+In Appium 2 and 3, Selenium Grid 4 connects to the Appium server via a Grid 4 `[relay]` TOML configuration (see [`examples/selenium-grid-4.toml`](examples/selenium-grid-4.toml)):
+
+```toml
+[server]
+port = 5555
+
+[node]
+detect-drivers = false
+
+[relay]
+url = "http://appium_android_device:4723"
+status-endpoint = "/status"
+configs = [
+  "1", '{"platformName": "Android", "appium:automationName": "UiAutomator2"}'
+]
+```
+
+#### Selenium Grid 3 (Legacy)
+
 Appium-Docker-Android can be connected with selenium grid by passing following parameters:
 
 - CONNECT\_TO\_GRID=true
@@ -141,6 +162,16 @@ Appium-Docker-Android can be connected with selenium grid by passing following p
 ```
 $ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name appium-container appium/appium
 ```
+
+### Running without `--privileged` (e.g. `dockremap` / `userns-remap`)
+
+When `--privileged` cannot be used on the Docker host (such as when user namespace remapping / `dockremap` is enabled), run the ADB server on the host machine (`adb -a nodaemon server start`) and point the container and Appium session to the host ADB server without setting `REMOTE_ADB=true`:
+
+```
+$ docker run -d -p 4723:4723 -e ANDROID_ADB_SERVER_ADDRESS=host.docker.internal -e ANDROID_ADB_SERVER_PORT=5037 --add-host=host.docker.internal:host-gateway --name appium-container appium/appium
+```
+
+In your test capabilities, set `appium:remoteAdbHost` (e.g. `"host.docker.internal"`), `appium:remoteAdbPort` (`5037`), and `appium:udid` (`"<device-serial>"`) so `adb` targets the intended device when multiple devices or emulators are attached.
 
 ### Custom Node Config
 

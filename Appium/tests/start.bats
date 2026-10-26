@@ -21,3 +21,20 @@ load ../../node_modules/bats-mock/stub
   unstub pkill
   unstub xvfb-run
 }
+
+@test '[Wireless] Verify wireless_connect skips already connected devices' {
+  stub adb \
+    "devices : printf 'List of devices attached\n192.168.0.5:5555\tdevice\n'" \
+    "connect 192.168.0.6:5555 : echo 'connected to 192.168.0.6:5555'" \
+    "devices : printf 'List of devices attached\n192.168.0.5:5555\tdevice\n192.168.0.6:5555\tdevice\n'"
+  stub sleep \
+    "2 : true"
+
+  ANDROID_DEVICES="192.168.0.5:5555, 192.168.0.6:5555" run ${APP_PATH}/wireless_connect.sh
+  [ "$status" -eq 0 ]
+  [[ "$output" != *"Connecting to: 192.168.0.5:5555"* ]]
+  [[ "$output" == *"Connecting to: 192.168.0.6:5555"* ]]
+
+  unstub adb
+  unstub sleep
+}
