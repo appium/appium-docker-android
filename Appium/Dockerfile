@@ -24,8 +24,10 @@ RUN apt-get -qqy update && \
 #===============
 # Set JAVA_HOME
 #===============
-ENV JAVA_HOME="/usr/lib/jvm/java-25-openjdk-amd64"
+ARG TARGETARCH=amd64
+ENV JAVA_HOME="/usr/lib/jvm/java-25-openjdk-${TARGETARCH}"
 ENV PATH=$PATH:${JAVA_HOME}/bin
+RUN [ -e "${JAVA_HOME}" ] || ln -s "/usr/lib/jvm/java-25-openjdk-$(dpkg --print-architecture)" "${JAVA_HOME}"
 
 #================
 # Set up Android
@@ -78,8 +80,10 @@ RUN echo "${TZ}" > /etc/timezone \
 #=====================
 # Set up needed tools
 #=====================
-ENV JAVA_HOME="/usr/lib/jvm/java-25-openjdk-amd64"
+ARG TARGETARCH=amd64
+ENV JAVA_HOME="/usr/lib/jvm/java-25-openjdk-${TARGETARCH}"
 ENV PATH=$PATH:${JAVA_HOME}/bin
+RUN [ -e "${JAVA_HOME}" ] || ln -s "/usr/lib/jvm/java-25-openjdk-$(dpkg --print-architecture)" "${JAVA_HOME}"
 
 ENV ANDROID_HOME=/opt/android
 COPY --from=android_img ${ANDROID_HOME} ${ANDROID_HOME}
