@@ -1,6 +1,7 @@
 #!/bin/bash
 
 if [ ! -z "${ANDROID_DEVICES}" ]; then
+	connected_devices=$(adb devices | grep -w "device" || true)
 	IFS=',' read -r -a array <<<"${ANDROID_DEVICES}"
 	for i in "${!array[@]}"; do
 		array_device=$(echo ${array[$i]} | tr -d " ")
