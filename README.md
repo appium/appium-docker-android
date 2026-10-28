@@ -130,11 +130,13 @@ $ docker run --privileged -d -p 4723:4723 -e APPIUM_PLUGINS="images,execute-driv
 
 ### Connect to Selenium Grid
 
-#### Selenium Grid 4 (Appium 2 / 3)
-
 In Appium 2 and 3, Selenium Grid 4 connects to the Appium server via a Grid 4 `[relay]` TOML configuration (see [`examples/selenium-grid-4.toml`](examples/selenium-grid-4.toml)):
 
 ```toml
+[events]
+publish = "tcp://selenium_hub:4442"
+subscribe = "tcp://selenium_hub:4443"
+
 [server]
 port = 5555
 
@@ -144,23 +146,10 @@ detect-drivers = false
 [relay]
 url = "http://appium_android_device:4723"
 status-endpoint = "/status"
+protocol-version = "HTTP/1.1"
 configs = [
   "1", '{"platformName": "Android", "appium:automationName": "UiAutomator2"}'
 ]
-```
-
-#### Selenium Grid 3 (Legacy)
-
-Appium-Docker-Android can be connected with selenium grid by passing following parameters:
-
-- CONNECT\_TO\_GRID=true
-- APPIUM\_HOST=\<ip\_address\_of\_appium\_server>
-- APPIUM\_PORT=\<port\_of\_appium\_server>
-- SELENIUM\_HOST=\<ip\_address\_of\_selenium\_hub>
-- SELENIUM\_PORT=\<port\_of\_selenium\_hub>
-
-```
-$ docker run --privileged -d -p 4723:4723 -e CONNECT_TO_GRID=true -e APPIUM_HOST="127.0.0.1" -e APPIUM_PORT=4723 -e SELENIUM_HOST="172.17.0.1" -e SELENIUM_PORT=4444 -v /dev/bus/usb:/dev/bus/usb --name appium-container appium/appium
 ```
 
 ### Running without `--privileged` (e.g. `dockremap` / `userns-remap`)
@@ -173,18 +162,10 @@ $ docker run -d -p 4723:4723 -e ANDROID_ADB_SERVER_ADDRESS=host.docker.internal 
 
 In your test capabilities, set `appium:remoteAdbHost` (e.g. `"host.docker.internal"`), `appium:remoteAdbPort` (`5037`), and `appium:udid` (`"<device-serial>"`) so `adb` targets the intended device when multiple devices or emulators are attached.
 
-### Custom Node Config
-
-The image generates the node config file, if you would like to provide your own config pass the following parameters:
-
-- CONNECT\_TO\_GRID=true
-- CUSTOM\_NODE\_CONFIG=true
-- -v \<path\_to\_config>:/home/androidusr/appium-docker-android/nodeconfig.json
-
 ### Docker compose
 
-There is [an example of compose file](examples/docker-compose.yml) to simulate the connection between selenium hub and appium server with connected device(s) in docker solution.
+There is [an example of compose file](examples/docker-compose.yml) to simulate the connection between Selenium Hub (Grid 4), a Selenium Relay Node, and the Appium server with connected device(s) in a Docker solution.
 
 ```
-$ docker-compose up -d
+$ docker compose -f examples/docker-compose.yml up -d
 ```

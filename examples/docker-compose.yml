@@ -1,26 +1,32 @@
-# Note: It requires docker-compose 1.6.0+
-#
-# Usage: docker-compose up -d
-version: '2'
-
+# Usage: docker compose -f examples/docker-compose.yml up -d
 services:
-  # Selenium hub
+  # Selenium Hub (Grid 4)
   selenium_hub:
-    image: selenium/hub
+    image: selenium/hub:4
     ports:
+      - 4442:4442
+      - 4443:4443
       - 4444:4444
 
-  # Appium Docker Android  
-  appium_android_device:
-    image: appium/appium
+  # Selenium Grid 4 Relay Node for Appium
+  selenium_node:
+    image: selenium/node-base:4
     depends_on:
       - selenium_hub
+      - appium_android_device
+    volumes:
+      - ./selenium-grid-4.toml:/opt/selenium/config.toml
+    environment:
+      - SE_EVENT_BUS_HOST=selenium_hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - GENERATE_CONFIG=false
+
+  # Appium Docker Android
+  appium_android_device:
+    image: appium/appium
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ~/.android:/home/androidusr/.android
-    environment:
-      - CONNECT_TO_GRID=true
-      - SELENIUM_HOST=selenium_hub
-      # Enable it for msite testing
-      #- BROWSER_NAME=chrome
+

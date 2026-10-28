@@ -30,15 +30,6 @@ if [ -n "${APPIUM_PLUGINS}" ]; then
 	fi
 fi
 
-# Adding Selenium configurations if needed
-if [ "${CONNECT_TO_GRID}" = true ]; then
-	NODE_CONFIG_JSON="${APP_PATH}/nodeconfig.json"
-	if [ "${CUSTOM_NODE_CONFIG}" != true ]; then
-		${APP_PATH}/generate_selenium_config.sh ${NODE_CONFIG_JSON}
-	fi
-	command+=" --nodeconfig ${NODE_CONFIG_JSON}"
-fi
-
 if [ "${DEFAULT_CAPABILITIES}" = true ]; then
 	DEFAULT_CAPABILITIES_JSON="${APP_PATH}/defaultcapabilities.json"
 	command+=" --default-capabilities ${DEFAULT_CAPABILITIES_JSON}"

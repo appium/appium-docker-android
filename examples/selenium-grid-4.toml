@@ -1,3 +1,7 @@
+[events]
+publish = "tcp://selenium_hub:4442"
+subscribe = "tcp://selenium_hub:4443"
+
 [server]
 port = 5555
 
@@ -7,6 +11,8 @@ detect-drivers = false
 [relay]
 url = "http://appium_android_device:4723"
 status-endpoint = "/status"
+protocol-version = "HTTP/1.1"
 configs = [
   "1", '{"platformName": "Android", "appium:automationName": "UiAutomator2"}'
 ]
+
