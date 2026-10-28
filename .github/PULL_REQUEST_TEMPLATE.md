@@ -16,7 +16,7 @@ Describe what changed and why.
 
 ## AI Usage disclosure
 - AI assistance: [ ] None  [ ] Yes
-- Tool(s): <!-- e.g., GitHub Copilot, Claude Code -->
+- Tool(s): e.g., GitHub Copilot, Claude Code
 
 ## Additional notes
 
