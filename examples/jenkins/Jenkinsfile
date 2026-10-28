@@ -1,0 +1,77 @@
+pipeline {
+    agent {
+        kubernetes {
+            label 'android-at'
+            defaultContainer 'jnlp'
+            yaml '''
+              apiVersion: v1
+              kind: Pod
+              metadata:
+                labels:
+                  deploy: android-at
+              spec:
+                containers:
+                  - name: jnlp
+                    image: jenkins/inbound-agent:latest
+                  - name: appium
+                    image: appium/appium:latest
+                    command:
+                      - cat
+                    tty: true
+                    env:
+                      - name: REMOTE_ADB
+                        value: "true"
+                      - name: ANDROID_DEVICES
+                        value: "192.168.0.5:5555"
+                      - name: APPIUM_LOG
+                        value: "/tmp/appium.log"
+                    volumeMounts:
+                      - mountPath: /home/androidusr/.android
+                        name: adb
+                        readOnly: true
+                  - name: at-app
+                    image: curlimages/curl:latest
+                    command:
+                      - cat
+                    tty: true
+                volumes:
+                  - name: adb
+                    secret:
+                      defaultMode: 420
+                      optional: false
+                      secretName: adb
+            '''
+        }
+    }
+
+    stages {
+        stage('Fetch APK') {
+            steps {
+                container('at-app') {
+                    sh 'curl -fsSL "${APK_BUILD_OUTPUT_PATH}" -o app-global-debug.apk'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                container('appium') {
+                    sh '''
+                        # Start Appium server and wireless ADB auto-connect in the background
+                        "${WORK_PATH}/${SCRIPT_PATH}/start.sh" &
+
+                        # Wait until the Appium server is ready on port 4723
+                        for i in $(seq 1 30); do
+                            if grep -q "Appium REST http interface listener started" "${APPIUM_LOG:-/tmp/appium.log}" 2>/dev/null; then
+                                break
+                            fi
+                            sleep 1
+                        done
+
+                        adb devices
+                    '''
+                }
+            }
+        }
+    }
+}

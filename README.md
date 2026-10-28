@@ -169,3 +169,7 @@ There is [an example of compose file](examples/docker-compose.yml) to simulate t
 ```
 $ docker compose -f examples/docker-compose.yml up -d
 ```
+
+### Jenkins (Kubernetes Plugin)
+
+There is [a Jenkins pipeline example](examples/jenkins) demonstrating how to run `appium/appium` inside a Kubernetes pod in Jenkins and start `"${WORK_PATH}/${SCRIPT_PATH}/start.sh"` from a pipeline `sh` step.
