@@ -93,7 +93,7 @@ ${ANDROID_HOME}/cmdline-tools/tools/bin:\
 ${ANDROID_HOME}/platform-tools:\
 ${ANDROID_HOME}/build-tools
 
-COPY --from=node:26.12.1-slim /usr/local /usr/local
+COPY --from=node:26.13.0-slim /usr/local /usr/local
 
 #===============
 # Create a user
