@@ -134,8 +134,8 @@ USER ${USERID}:${GROUPID}
 
 ENV APPIUM_DRIVER_ESPRESSO_VERSION="9.3.13"
 ENV APPIUM_DRIVER_FLUTTER_VERSION="4.1.0"
-ENV APPIUM_DRIVER_GECKO_VERSION="4.0.0"
-ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="9.0.1"
+ENV APPIUM_DRIVER_GECKO_VERSION="3.0.18"
+ENV APPIUM_DRIVER_UIAUTOMATOR2_VERSION="8.7.3"
 RUN appium driver install --source=npm appium-espresso-driver@${APPIUM_DRIVER_ESPRESSO_VERSION} && \
     appium driver install --source=npm appium-flutter-driver@${APPIUM_DRIVER_FLUTTER_VERSION} && \
     appium driver install --source=npm appium-geckodriver@${APPIUM_DRIVER_GECKO_VERSION} && \
