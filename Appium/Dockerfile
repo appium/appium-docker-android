@@ -32,7 +32,7 @@ RUN [ -e "${JAVA_HOME}" ] || ln -s "/usr/lib/jvm/java-25-openjdk-$(dpkg --print-
 #================
 # Set up Android
 #================
-ENV SDK_VERSION=commandlinetools-linux-13114758_latest
+ENV SDK_VERSION=commandlinetools-linux-15859902_latest
 ENV ANDROID_BUILD_TOOLS_VERSION=36.0.0
 ENV ANDROID_CMD=cmdline-tools
 ENV ANDROID_HOME=/opt/android
